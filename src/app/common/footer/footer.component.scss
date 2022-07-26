@@ -1,0 +1,22 @@
+footer {
+    background: #FFF6CD;
+    .footer-listing {
+        justify-content: center;
+        li {
+            border: none;
+            a {
+                color: #333;
+                text-decoration: none;
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+            &.list-group-item {
+                background: #FFF6CD;
+            }
+        }
+    }
+    p {
+        margin-bottom: 0;
+    }
+}

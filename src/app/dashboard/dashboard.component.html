@@ -1,0 +1,15 @@
+<div class="container-fluid my-5 minimum-height">
+    <div class="row">
+        <div class="col-3">
+            <div class="list-group">
+                <a href="javascript: void(0)" routerLink="register" routerLinkActive="active" class="list-group-item list-group-item-action">Register</a>
+                <a href="javascript: void(0)" routerLink="change-password" routerLinkActive="active" class="list-group-item list-group-item-action">Change password</a>
+                <a href="javascript: void(0)" routerLink="candidate-form" routerLinkActive="active" class="list-group-item list-group-item-action">Candidate form</a>
+                <a href="javascript: void(0)" routerLink="candidate-list" routerLinkActive="active" class="list-group-item list-group-item-action">Candidate list</a>
+            </div>
+        </div>
+        <div class="col-9">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

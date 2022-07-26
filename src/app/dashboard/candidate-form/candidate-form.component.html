@@ -1,0 +1,130 @@
+<div class="container-fluid mx-auto">
+    <div class="card">
+        <form [formGroup]="candidateDetailsForm" (submit)="candidateRegistration()" class="card-body">
+            <div class="row">
+                <div class="col-6 form-group my-2">
+                    <label class="p-1" for="name">Name <sup>*</sup></label>
+                    <input type="text" formControlName="name" class="form-control" id="name" placeholder="Enter name" readonly>
+                    <div *ngIf="formSubmitStatus && (candidateDetailsForm.controls['name'].invalid || candidateDetailsForm.controls['name'].errors?.['required'])" class="invalid-feedback">
+                        This field is required.
+                    </div>
+                </div>            
+                <div class="col-6 form-group my-2">
+                    <label class="p-1" for="enrollmentNumber">Enrollment number <sup>*</sup></label>
+                    <input type="text" formControlName="enrollmentNumber" class="form-control" id="enrollmentNumber" placeholder="Enter enrollment number" readonly>
+                    <div *ngIf="formSubmitStatus && (candidateDetailsForm.controls['enrollmentNumber'].invalid || candidateDetailsForm.controls['enrollmentNumber'].errors?.['required'])" class="invalid-feedback">
+                        This field is required.
+                    </div>
+                </div>
+                <div class="col-6 form-group my-2">
+                    <label class="p-1" for="enrollmentYear">Enrollment year <sup>*</sup></label>
+                    <input type="text" formControlName="enrollmentYear" class="form-control" id="enrollmentYear" placeholder="Enter enrollment year" readonly>
+                    <div *ngIf="formSubmitStatus && (candidateDetailsForm.controls['enrollmentYear'].invalid || candidateDetailsForm.controls['enrollmentYear'].errors?.['required'])" class="invalid-feedback">
+                        This field is required.
+                    </div>
+                </div>            
+                <div class="col-6 form-group my-2">
+                    <label class="p-1" for="dob">DOB <sup>*</sup></label>
+                    <input type="text" formControlName="dob" class="form-control" id="dob" placeholder="Enter dob" readonly>
+                    <div *ngIf="formSubmitStatus && (candidateDetailsForm.controls['dob'].invalid || candidateDetailsForm.controls['dob'].errors?.['required'])" class="invalid-feedback">
+                        This field is required.
+                    </div>
+                </div>
+
+
+                <div class="col-6 form-group my-2">
+                    <label class="p-1" for="fatherName">Father's name <sup>*</sup></label>
+                    <input type="text" formControlName="fatherName" class="form-control" id="fatherName" placeholder="Enter father's name" required>
+                    <div *ngIf="formSubmitStatus && (candidateDetailsForm.controls['fatherName'].invalid || candidateDetailsForm.controls['fatherName'].errors?.['required'])" class="invalid-feedback">
+                        This field is required.
+                    </div>
+                </div>            
+                <div class="col-6 form-group my-2">
+                    <label class="p-1" for="motherName">Mother's name <sup>*</sup></label>
+                    <input type="text" formControlName="motherName" class="form-control" id="motherName" placeholder="Enter mother's name" required>
+                    <div *ngIf="formSubmitStatus && (candidateDetailsForm.controls['motherName'].invalid || candidateDetailsForm.controls['motherName'].errors?.['required'])" class="invalid-feedback">
+                        This field is required.
+                    </div>
+                </div>
+                <div class="col-6 form-group my-2">
+                    <label class="p-1" for="gender">Gender <sup>*</sup></label>
+                    <select class="form-control" formControlName="gender" name="gender" id="gender" required>
+                        <option value="">Please gender</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Others</option>
+                    </select>
+                    <div *ngIf="formSubmitStatus && (candidateDetailsForm.controls['gender'].invalid || candidateDetailsForm.controls['gender'].errors?.['required'])" class="invalid-feedback">
+                        This field is required.
+                    </div>
+                </div>
+                <div class="col-6 form-group my-2">
+                    <label class="p-1" for="casteCat">Caste category <sup>*</sup></label>
+                    <select class="form-control" formControlName="casteCat" name="casteCat" id="casteCat" required>
+                        <option value="">Select category</option>
+                        <option>General</option>
+                        <option>OBC</option>
+                        <option>SC/ST</option>
+                    </select>
+                    <div *ngIf="formSubmitStatus && (candidateDetailsForm.controls['casteCat'].invalid || candidateDetailsForm.controls['casteCat'].errors?.['required'])" class="invalid-feedback">
+                        This field is required.
+                    </div>
+                </div>
+                <div class="col-6 form-group my-2">
+                    <label class="p-1" for="disability">Disability <sup>*</sup></label>
+                    <select class="form-control" formControlName="disability" name="disability" id="disability" required>
+                        <option value="">Select disability</option>
+                        <option>Blind</option>
+                        <option>Deaf</option>
+                        <option>Blind and Deaf</option>
+                    </select>
+                    <div *ngIf="formSubmitStatus && (candidateDetailsForm.controls['disability'].invalid || candidateDetailsForm.controls['disability'].errors?.['required'])" class="invalid-feedback">
+                        This field is required.
+                    </div>
+                </div>
+                <div class="col-6 form-group my-2">
+                    <label class="p-1" for="mobileNo">Mobile number <sup>*</sup></label>
+                    <input type="number" formControlName="mobileNo" class="form-control" id="mobileNo" placeholder="Enter mobile number" required>
+                    <div *ngIf="formSubmitStatus && (candidateDetailsForm.controls['mobileNo'].invalid || candidateDetailsForm.controls['mobileNo'].errors?.['required'])" class="invalid-feedback">
+                        This field is required.
+                    </div>
+                </div>
+                <div class="col-6 form-group my-2">
+                    <label class="p-1" for="emailId">Email <sup>*</sup></label>
+                    <input type="email" formControlName="emailId" class="form-control" id="emailId" placeholder="Enter email" required>
+                    <div *ngIf="formSubmitStatus && (candidateDetailsForm.controls['emailId'].invalid || candidateDetailsForm.controls['emailId'].errors?.['required'])" class="invalid-feedback">
+                        This field is required.
+                    </div>
+                </div>
+                <div class="col-6 form-group my-2">
+                    <label class="p-1" for="photo">Photo <sup>*</sup></label>
+                    <input type="file" formControlName="photo" class="form-control" id="photo" placeholder="Enter new password" required>
+                    <div *ngIf="formSubmitStatus && (candidateDetailsForm.controls['photo'].invalid || candidateDetailsForm.controls['photo'].errors?.['required'])" class="invalid-feedback">
+                        This field is required.
+                    </div>
+                </div>
+                <div class="col-6 form-group my-2">
+                    <label class="p-1" for="rciApplication">RCI appication <sup>*</sup></label>
+                    <input type="text" formControlName="rciApplication" class="form-control" id="rciApplication" placeholder="Enter RCI appication" required>
+                    <div *ngIf="formSubmitStatus && (candidateDetailsForm.controls['rciApplication'].invalid || candidateDetailsForm.controls['rciApplication'].errors?.['required'])" class="invalid-feedback">
+                        This field is required.
+                    </div>
+                </div>
+                <div class="col-6 form-group my-2">
+                    <label class="p-1" for="adharCardNo">Adhar card number</label>
+                    <input type="text" formControlName="adharCardNo" class="form-control" id="adharCardNo" placeholder="Enter Adhar card number">
+                </div>
+                <div class="col-6 form-group my-2">
+                    <label class="p-1" for="address">Address <sup>*</sup></label>
+                    <textarea formControlName="address" class="form-control" id="address" name="address" cols="30" rows="3" placeholder="Enter address" required></textarea>
+                    <div *ngIf="formSubmitStatus && (candidateDetailsForm.controls['address'].invalid || candidateDetailsForm.controls['address'].errors?.['required'])" class="invalid-feedback">
+                        This field is required.
+                    </div>
+                </div>
+                <div class="col-12 form-group my-2">
+                    <button type="submit" class="submit-btn btn btn-success my-2">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

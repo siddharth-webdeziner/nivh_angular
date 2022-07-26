@@ -1,0 +1,25 @@
+<div class="responsive-table">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Enrollment number</th>
+            <th scope="col">Enrollment year</th>
+            <th scope="col">DOB</th>
+            <th scope="col">&nbsp;</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let candidate of candidateArr">
+            <td>{{candidate.FirstName}}</td>
+            <td>{{candidate.EnrollmentNo}}</td>
+            <td>{{candidate.Annual_Year}}</td>
+            <td>{{candidate.Dob}}</td>
+            <td class="align-right">
+                <button class="btn btn-success btn-sm" type="button" [routerLink] = "['../candidate-details', candidate.CandidateId]">View Details</button>&nbsp;&nbsp;
+                <button class="btn btn-success btn-sm" type="button">Verify</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

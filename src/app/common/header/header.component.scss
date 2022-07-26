@@ -1,0 +1,31 @@
+.navbar {
+    background: #FFFBE8;
+    .navbar-brand {
+        width: 33%;
+        img {
+            height: 60px;
+        }
+    }
+    .navbar-nav {
+        width: 98%;
+        li {
+            text-align: center;
+            &:first-child {
+                width: 70%;
+            }
+            &:last-child {
+                text-align: right;
+                width: 30%;
+            }
+        }
+        img {
+            height: 120px;
+        }
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .navbar-nav {
+        display: none;
+    }
+}

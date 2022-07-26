@@ -1,0 +1,12 @@
+.align-right {
+    text-align: right;
+}
+
+@media screen and (max-width: 1024px) {
+    .responsive-table {
+        width: 100%;
+        max-width: 1024px;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+}

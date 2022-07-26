@@ -1,0 +1,32 @@
+<div class="container minimum-height">
+    <div class="row">
+        <div class="form-container mx-auto my-5">
+            <div class="card">
+                <form [formGroup]="loginForm" class="card-body" novalidate>
+                    <div class="form-group my-2">
+                        <label class="p-1" for="name">Name</label>
+                        <input type="email" formControlName="name" class="form-control" id="name" placeholder="Enter your name" required>
+                        <div *ngIf="formSubmitStatus && (loginForm.controls['name'].invalid || loginForm.controls['name'].errors?.['required'])" class="invalid-feedback">
+                            This field is required.
+                        </div>
+                    </div>
+                    <div *ngIf="source !== 'candidate'" class="form-group my-2">
+                        <label class="p-1" for="password">Password</label>
+                        <input type="password" class="form-control" formControlName="password" id="password" placeholder="Enter your password" required>
+                        <div *ngIf="formSubmitStatus && (loginForm.controls['password'].invalid || loginForm.controls['password'].errors?.['required'])" class="invalid-feedback">
+                            This field is required.
+                        </div>
+                    </div>
+                    <div *ngIf="source === 'candidate'" class="form-group my-2">
+                        <label class="p-1" for="dob">Date of birth</label>
+                        <input type="date" class="form-control" formControlName="password" id="password" placeholder="Enter your DOB" required>
+                        <div *ngIf="formSubmitStatus && (loginForm.controls['password'].invalid || loginForm.controls['password'].errors?.['required'])" class="invalid-feedback">
+                            This field is required.
+                        </div>
+                    </div>
+                    <button [disabled]="!loginForm.controls['name'].dirty" type="button" class="btn btn-success my-2" (click)="navigateToDashboard()">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

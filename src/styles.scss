@@ -1,0 +1,25 @@
+/* You can add global styles to this file, and also import other style files */
+.form-container {
+    max-width: 640px;
+    width: 90%;
+}
+.minimum-height {
+    min-height: calc(100vh - 320px);
+}
+.invalid-feedback {
+    display: block;
+}
+.form-control:focus {
+    box-shadow: none;
+    border-color: #2D2F7E;
+}
+
+.list-group-item.active {
+    background-color: #2D2F7E;
+    border-color: #2D2F7E;
+}
+
+sup {
+    color: #ff0000;
+    font-size: 15px;
+}
