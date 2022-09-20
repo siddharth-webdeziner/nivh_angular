@@ -1,0 +1,63 @@
+<div class="form-container mx-auto">
+    <div class="card">
+        <form [formGroup]="updateCandidateRegisterForm" class="card-body" (submit)="updateRegisterCandidate()">
+            <div class="row">
+                <div class="col-6 form-group my-2">
+                    <label class="p-1" for="stateCode">State code</label>
+                    <select formControlName="stateCode" class="form-control" name="stateCode" id="stateCode" readOnly>
+                        <option [value]="setStateCode">{{ setStateCode }}</option>
+                    </select>
+                </div>
+                <div class="col-6 form-group my-2">
+                    <label class="p-1" for="centerCode">Center code</label>
+                    <select formControlName="centerCode" class="form-control" name="centerCode" id="centerCode" readOnly>
+                        <option [value]="setCenterCode">{{ setCenterCode }}</option>
+                    </select>
+                </div>
+                <div class="form-group my-2">
+                    <label class="p-1" for="name">Name</label>
+                    <input formControlName="name" type="name" class="form-control" id="name" placeholder="Enter name" required>
+                </div>
+            </div>
+            <div *ngIf="urlPrefix !== 'coordinator'">
+                <div class="form-group my-2">
+                    <label class="p-1" for="rciApplication">RCI application</label>
+                    <input formControlName="rciApplication" type="email" class="form-control" id="rciApplication" placeholder="Enter RCI application number" readOnly>
+                </div>
+                <div class="form-group my-2">
+                    <label class="p-1" for="enrollmentYear">Enrollment year</label>
+                    <select formControlName="enrollmentYear" class="form-control" name="enrollmentYear" id="enrollmentYear">
+                        <option value=null>Select enrollment year</option>
+                        <option>2020-2022</option>
+                        <option>2021-2023</option>
+                        <option>2022-2024</option>
+                        <option>2023-2025</option>
+                        <option>2024-2026</option>
+                    </select>
+                </div>
+                <div class="form-group my-2">
+                    <label class="p-1" for="courseName">Course name</label>
+                    <select formControlName="courseName" class="form-control" name="courseName" id="courseName">
+                        <option [value]="course.CourseId" *ngFor="let course of allCourses">{{course.CourseName}}</option>
+                    </select>
+                </div>
+            </div>
+            <div *ngIf="urlPrefix === 'coordinator'">
+                <div class="form-group my-2">
+                    <label class="p-1" for="userName">User name</label>
+                    <input autocomplete="off" formControlName="userName" type="text" class="form-control" id="userName" placeholder="Enter user name" required>
+                </div>
+                <div class="form-group my-2">
+                    <label class="p-1" for="email">Email</label>
+                    <input autocomplete="off" formControlName="email" type="email" class="form-control" id="email" placeholder="Enter email" required>
+                </div>
+                <div class="form-group my-2">
+                    <label class="p-1" for="contactNumber">Phone number</label>
+                    <input autocomplete="off" formControlName="contactNumber" type="number" class="form-control" id="contactNumber" placeholder="Enter phone number" required>
+                </div>
+            </div>
+            <button [disabled]="!updateCandidateRegisterForm.dirty || formSubmitStatus" type="submit" class="btn btn-success my-2">Update</button>
+            <div *ngIf="formSubmitStatus" class="spinner-border spinner-border-middle align-text-top" role="status"></div>
+        </form>
+    </div>
+</div>

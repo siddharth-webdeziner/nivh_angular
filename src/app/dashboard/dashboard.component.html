@@ -2,10 +2,25 @@
     <div class="row">
         <div class="col-3">
             <div class="list-group">
-                <a href="javascript: void(0)" routerLink="register" routerLinkActive="active" class="list-group-item list-group-item-action">Register</a>
-                <a href="javascript: void(0)" routerLink="change-password" routerLinkActive="active" class="list-group-item list-group-item-action">Change password</a>
-                <a href="javascript: void(0)" routerLink="candidate-form" routerLinkActive="active" class="list-group-item list-group-item-action">Candidate form</a>
-                <a href="javascript: void(0)" routerLink="candidate-list" routerLinkActive="active" class="list-group-item list-group-item-action">Candidate list</a>
+                <a *ngIf="loggedInUser.UserRoleId === 1" href="javascript: void(0)" routerLink="candidate/register" routerLinkActive="active" class="list-group-item list-group-item-action">Register candidate</a>
+
+                <a *ngIf="loggedInUser.UserRoleId === 1" href="javascript: void(0)" routerLink="coordinator/register" routerLinkActive="active" class="list-group-item list-group-item-action">Register co-ordinator</a>
+
+                <a *ngIf="loggedInUser.UserRoleId === 4" href="javascript: void(0)" routerLink="change-password" routerLinkActive="active" class="list-group-item list-group-item-action">Change password</a>
+
+                <a *ngIf="loggedInUser.UserRoleId === 4" href="javascript: void(0)" [routerLink] = "['my-form', loggedInUser.CandidateId]" routerLinkActive="active" class="list-group-item list-group-item-action">My form</a>
+                
+                <a *ngIf="loggedInUser.UserRoleId === 1 || loggedInUser.UserRoleId === 2" href="javascript: void(0)" routerLink="candidate-list" routerLinkActive="active" class="list-group-item list-group-item-action">Candidate list</a>
+
+                <a *ngIf="loggedInUser.UserRoleId === 4" href="javascript: void(0)" [routerLink] = "['my-details', loggedInUser.CandidateId]" routerLinkActive="active" class="list-group-item list-group-item-action">My details</a>
+
+                <a *ngIf="loggedInUser.UserRoleId === 1" href="javascript: void(0)" routerLink="coordinate-list" routerLinkActive="active" class="list-group-item list-group-item-action">Course coordinator list</a>
+
+                <a *ngIf="loggedInUser.UserRoleId === 1" href="javascript: void(0)" routerLink="add-center" routerLinkActive="active" class="list-group-item list-group-item-action">Add center</a>
+
+                <a *ngIf="loggedInUser.UserRoleId === 1" href="javascript: void(0)" routerLink="center-list" routerLinkActive="active" class="list-group-item list-group-item-action">Center list</a>
+
+                <a href="javascript: void(0)" (click)="loggedOut()" class="list-group-item list-group-item-action">log out</a>
             </div>
         </div>
         <div class="col-9">

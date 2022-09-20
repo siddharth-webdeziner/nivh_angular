@@ -1,0 +1,48 @@
+<div class="form-container mx-auto">
+    <div class="card">
+        <form [formGroup]="centerForm" class="card-body" (submit)="registerCenter()">
+            <div class="row">
+                <div class="col-12 form-group my-2">
+                    <label class="p-1" for="centerName">Center name</label>
+                    <input type="text" placeholder="Enter center name" formControlName="centerName" class="form-control" name="centerName" id="centerName" />
+                    <div *ngIf="formSubmitStatus && (centerForm.controls['centerName'].invalid || centerForm.controls['centerName'].errors?.['required'])" class="invalid-feedback">
+                        This field is required.
+                    </div>
+                </div>
+                <div class="col-6 form-group my-2">
+                    <label class="p-1" for="stateCode">State name</label>
+                    <input type="text" placeholder="Enter state name" formControlName="stateCode" class="form-control" name="stateCode" id="stateCode" />
+                    <div *ngIf="formSubmitStatus && (centerForm.controls['stateCode'].invalid || centerForm.controls['stateCode'].errors?.['required'])" class="invalid-feedback">
+                        This field is required.
+                    </div>
+                </div>
+                <div class="col-6 form-group my-2">
+                    <label class="p-1" for="centerState">Center state</label>
+                    <input type="text" placeholder="Enter center state" formControlName="centerState" class="form-control" name="centerState" id="centerState" />
+                    <div *ngIf="formSubmitStatus && (centerForm.controls['centerState'].invalid || centerForm.controls['centerState'].errors?.['required'])" class="invalid-feedback">
+                        This field is required.
+                    </div>
+                </div>
+                <div class="col-6 form-group my-2">
+                    <label class="p-1" for="centerCode">Center code</label>
+                    <select formControlName="centerCode" class="form-control" name="centerCode" id="centerCode">
+                        <option [value]=null>Select center code</option>
+                        <option [value]="center" *ngFor="let center of getCenterData">{{ center }}</option>
+                    </select>
+                    <div *ngIf="formSubmitStatus && (centerForm.controls['centerCode'].invalid || centerForm.controls['centerCode'].errors?.['required'])" class="invalid-feedback">
+                        This field is required.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group my-2">
+                <label class="p-1" for="cAddress">Center address</label>
+                <textarea autocomplete="off" formControlName="cAddress" type="password" class="form-control" id="cAddress" placeholder="Enter address" required></textarea>
+                <div *ngIf="formSubmitStatus && (centerForm.controls['cAddress'].invalid || centerForm.controls['cAddress'].errors?.['required'])" class="invalid-feedback">
+                    This field is required.
+                </div>
+            </div>
+            <button [disabled]="!centerForm.dirty || formSubmitStatus" type="submit" class="btn btn-success my-2">Submit</button>
+            <div *ngIf="formSubmitStatus" class="spinner-border spinner-border-middle align-text-top" role="status"></div>
+        </form>
+    </div>
+</div>

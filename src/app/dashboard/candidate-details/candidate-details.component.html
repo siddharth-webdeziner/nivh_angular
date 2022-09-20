@@ -1,72 +1,92 @@
 <div class="container-fluid mx-auto">
     <div class="card">
-        <div class="card-body candidate-details">
+        <div *ngIf="candidateDetails" class="card-body candidate-details">
             <div class="row">
+                <div class="col-12 form-group my-3 text-center">
+                    <div class="image-outer">
+                        <img *ngIf="candidateDetails.Photo" [src]="candidateDetails.Photo" alt="image">
+                        <img *ngIf="!candidateDetails.Photo" src="assets/images/admin.png" alt="image">
+                    </div>
+                </div>
                 <div class="col-6 form-group my-2">
                     <label class="p-1" for="name">Name</label>
-                    <div class="form-control border-0 px-1">aaaaaaa</div>
+                    <div class="form-control border-0 px-1">{{candidateDetails.FirstName}}</div>
                 </div>            
                 <div class="col-6 form-group my-2">
                     <label class="p-1" for="enrollmentNumber">Enrollment number</label>
-                    <div class="form-control border-0 px-1">aaaaaaa</div>
+                    <div class="form-control border-0 px-1">{{candidateDetails.EnrollmentNo}}</div>
                 </div>
                 <div class="col-6 form-group my-2">
                     <label class="p-1" for="enrollmentYear">Enrollment year</label>
-                    <div class="form-control border-0 px-1">aaaaaaa</div>
+                    <div class="form-control border-0 px-1">{{candidateDetails.Annual_Year}}</div>
                 </div>            
                 <div class="col-6 form-group my-2">
                     <label class="p-1" for="dob">DOB</label>
-                    <div class="form-control border-0 px-1">aaaaaaa</div>
+                    <div class="form-control border-0 px-1">{{candidateDetails.DisplayDob}}</div>
                 </div>
-
-
                 <div class="col-6 form-group my-2">
                     <label class="p-1" for="fatherName">Father's name</label>
-                    <div class="form-control border-0 px-1">aaaaaaa</div>
+                    <div class="form-control border-0 px-1">{{candidateDetails.FatherName}}</div>
                 </div>            
                 <div class="col-6 form-group my-2">
                     <label class="p-1" for="motherName">Mother's name</label>
-                    <div class="form-control border-0 px-1">aaaaaaa</div>
+                    <div class="form-control border-0 px-1">{{candidateDetails.MotherName}}</div>
                 </div>
                 <div class="col-6 form-group my-2">
                     <label class="p-1" for="gender">Gender</label>
-                    <div class="form-control border-0 px-1">aaaaaaa</div>
+                    <div class="form-control border-0 px-1">{{candidateDetails.Gender}}</div>
                 </div>
                 <div class="col-6 form-group my-2">
                     <label class="p-1" for="casteCat">Caste category</label>
-                    <div class="form-control border-0 px-1">aaaaaaa</div>
+                    <div class="form-control border-0 px-1">{{candidateDetails.Caste}}</div>
                 </div>
                 <div class="col-6 form-group my-2">
                     <label class="p-1" for="disability">Disability</label>
-                    <div class="form-control border-0 px-1">aaaaaaa</div>
+                    <div class="form-control border-0 px-1">{{candidateDetails.Disability ? candidateDetails.Disability : 'No disability'}}</div>
                 </div>
                 <div class="col-6 form-group my-2">
                     <label class="p-1" for="mobileNo">Mobile number</label>
-                    <div class="form-control border-0 px-1">aaaa</div>
+                    <div class="form-control border-0 px-1">{{candidateDetails.Mobile}}</div>
                 </div>
                 <div class="col-6 form-group my-2">
                     <label class="p-1" for="emailId">Email</label>
-                    <div class="form-control border-0 px-1">aaaa</div>
+                    <div class="form-control border-0 px-1">{{candidateDetails.Email}}</div>
                 </div>
-                <div class="col-6 form-group my-2">
+                <!-- <div class="col-6 form-group my-2">
                     <label class="p-1" for="photo">Photo</label>
-                    <div class="form-control border-0 px-1">aaaa</div>
-                </div>
+                    <div class="form-control border-0 px-1">{{candidateDetails.Photo}}</div>
+                </div> -->
                 <div class="col-6 form-group my-2">
                     <label class="p-1" for="rciApplication">RCI appication</label>
-                    <div class="form-control border-0 px-1">aaaaaaa</div>
+                    <div class="form-control border-0 px-1">{{candidateDetails.RCI_application}}</div>
                 </div>
                 <div class="col-6 form-group my-2">
                     <label class="p-1" for="adharCardNo">Adhar card number</label>
-                    <div class="form-control border-0 px-1">aaaaaaa</div>
+                    <div class="form-control border-0 px-1">{{candidateDetails.AdharNumber}}</div>
                 </div>
                 <div class="col-6 form-group my-2">
                     <label class="p-1" for="address">Address</label>
-                    <div class="form-control border-0 px-1">aaaa</div>
+                    <div class="form-control border-0 px-1">{{candidateDetails.Address}}</div>
+                </div>
+                <div class="col-6 form-group my-2">
+                    <label class="p-1" for="address">Course name</label>
+                    <div class="form-control border-0 px-1">{{candidateDetails.CourseName}}</div>
+                </div>
+                <div class="col-6 form-group my-2">
+                    <label class="p-1" for="address">Center name</label>
+                    <div class="form-control border-0 px-1">{{candidateDetails.CenterName}} - {{candidateDetails.StateName}}</div>
+                </div>
+                <div class="col-6 form-group my-2">
+                    <label class="p-1" for="address">Signature</label>
+                    <div class="image-outer signature-upload">
+                        <img *ngIf="candidateDetails.Signature" [src]="candidateDetails.Signature" alt="image">
+                        <img *ngIf="!candidateDetails.Signature" src="assets/images/admin.png" alt="image">
+                    </div>
                 </div>
                 <div class="col-12 form-group my-2">
-                    <button type="button" class="submit-btn btn btn-success my-2">Edit</button> &nbsp;
-                    <button type="button" class="submit-btn btn btn-success my-2">Verify</button>
+                    <button *ngIf="loggedInUser.UserRoleId === 4" [routerLink] = "['../../my-form', candidateDetails.CandidateId]" type="button" class="submit-btn btn btn-success my-2">Edit</button> &nbsp;
+                    <button *ngIf="loggedInUser.UserRoleId === 2 && !candidateDetails.IsVerified" type="button" (click)="verifyCandidate()" class="submit-btn btn btn-success my-2">Verify</button>
+                    <button *ngIf="loggedInUser.UserRoleId === 2 && candidateDetails.IsVerified" disabled (click)="verifyCandidate()" class="my-2 verified btn btn-success">Verified</button>
                 </div>
             </div>
         </div>

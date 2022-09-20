@@ -3,4 +3,19 @@
         font-weight: 600;
         font-size: 18px;
     }
+    .image-outer {
+        width: 200px;
+        height: 200px;
+        margin: 0 auto;
+        &.signature-upload {
+            max-width: 140px;
+            max-height: 140px;
+            width: auto;
+            height: auto;
+        }
+        img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    }
 }

@@ -1,23 +1,105 @@
 <div class="responsive-table">
-    <table class="table">
+    <div *ngIf="this.listCategory !== 'coordinate-list'" >
+        <div  *ngIf="userDetails.UserRoleId === 1">
+            Filter by center code
+            <div class="row">
+                <select class="selectList form-control" [(ngModel)]="selectedStateOption" name="stateCode" id="stateCode" (change)="getCenterCode()">
+                    <option value=null>Select state code</option>
+                    <option *ngFor="let state of getCenterStateData">{{ state.StateCode }}</option>
+                </select>
+                <select class="selectList form-control" [(ngModel)]="selectedCenterOption" name="centerCode" id="centerCode" (change)="filterCandidateList()">
+                    <option value=null>Select center code</option>
+                    <option [value]="center.CenterCode" *ngFor="let center of getCenterData">{{ center.CenterName }}</option>
+                </select>
+                <select class="selectList form-control" [(ngModel)]="selectedYearOption" name="centerCode" id="centerCode">
+                    <option value="2021-2023">2021-2023</option>
+                </select>
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">S.no.</th>
+                <th scope="col">Name</th>
+                <th scope="col">RCI application</th>
+                <th scope="col">Enrollment no.</th>
+                <th scope="col">Category</th>
+                <th scope="col">Email Id</th>
+                <th scope="col">Mobile no.</th>
+                <th scope="col">Disability</th>
+                <th scope="col">&nbsp;</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let candidate of candidateArr; let i = index">
+                <td>{{i + 1}}</td>
+                <td class="text-capitalize">{{candidate.FirstName}}</td>
+                <td class="text-capitalize">{{candidate.RCI_application}}</td>
+                <td>{{candidate.EnrollmentNo}}</td>
+                <td style="max-width: 300px">{{candidate.Caste || 'NA'}}</td>
+                <td style="max-width: 300px">{{candidate.Email || 'NA'}}</td>
+                <td style="max-width: 300px">{{candidate.Mobile || 'NA'}}</td>
+                <td style="max-width: 300px">{{candidate.Disability || 'NA'}}</td>
+                <!-- <td *ngIf="!candidate.StateCode"></td> -->
+                <td class="align-right">
+                    <button class="btn btn-outline-success btn-sm" type="button" [routerLink] = "['../candidate-details', candidate.CandidateId]">View Details</button>&nbsp;&nbsp;
+                    <button *ngIf="this.userDetails.UserRoleId === 2" class="btn btn-outline-secondary btn-sm" type="button" [routerLink] = "['../update-form', candidate.CandidateId]">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                            <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+                        </svg>
+                    </button>&nbsp;&nbsp;
+                    <button *ngIf="this.userDetails.UserRoleId === 1" class="btn btn-outline-secondary btn-sm" type="button" [routerLink] = "['../update-form', candidate.CandidateId]">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                            <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+                        </svg>
+                    </button>&nbsp;&nbsp;
+                    <button class="btn btn-outline-danger btn-sm" type="button" (click)="deleteRecord(candidate.CandidateId, i)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                        </svg>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="no-match-found" *ngIf="!candidateArr || (candidateArr && candidateArr.length === 0)">
+        <h4>No candidate found for this filter!!</h4>
+    </div>
+    </div>
+    <table *ngIf="this.listCategory === 'coordinate-list'" class="table">
         <thead>
         <tr>
             <th scope="col">Name</th>
-            <th scope="col">Enrollment number</th>
-            <th scope="col">Enrollment year</th>
-            <th scope="col">DOB</th>
+            <th scope="col">User name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Center name</th>
+            <th scope="col">Center code</th>
+            <th scope="col">Phone no.</th>
             <th scope="col">&nbsp;</th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let candidate of candidateArr">
-            <td>{{candidate.FirstName}}</td>
-            <td>{{candidate.EnrollmentNo}}</td>
-            <td>{{candidate.Annual_Year}}</td>
-            <td>{{candidate.Dob}}</td>
+        <tr *ngFor="let candidate of candidateArr; let i = index">
+            <td class="text-capitalize">{{candidate.FirstName}}</td>
+            <td class="text-capitalize">{{candidate.UserName}}</td>
+            <td style="max-width: 300px; word-break: break-all;">{{candidate.Email}}</td>
+            <td style="max-width: 300px;" *ngIf="candidate.StateCode">{{candidate.CenterName}}</td>
+            <td *ngIf="candidate.StateCode">{{candidate.StateCode}}{{candidate.CentreCode}}</td>
+            <td *ngIf="candidate.StateCode">{{candidate.ContactNumber}}</td>
+            <td *ngIf="!candidate.StateCode"></td>
             <td class="align-right">
-                <button class="btn btn-success btn-sm" type="button" [routerLink] = "['../candidate-details', candidate.CandidateId]">View Details</button>&nbsp;&nbsp;
-                <button class="btn btn-success btn-sm" type="button">Verify</button>
+                <button class="btn btn-outline-secondary btn-sm" type="button" [routerLink] = "['../coordinator/update-register', candidate.UserId]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                        <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+                    </svg>
+                </button>&nbsp;&nbsp;
+                <button class="btn btn-outline-danger btn-sm" type="button" (click)="deleteRecord(candidate.UserId, i, 'coordinator')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                    </svg>
+                </button>
             </td>
         </tr>
         </tbody>

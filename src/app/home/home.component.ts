@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CommonService } from '../service/common.service';
 
 @Component({
   selector: 'app-home',
@@ -7,10 +8,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
+  loggedInUser: any;
   constructor(
-    private router: Router
-  ) { }
+    private router: Router,
+    private commonService: CommonService
+  ) {
+    this.loggedInUser = this.commonService.getLoginData();
+    console.log('this.loggedInUser', this.loggedInUser);
+    if(this.loggedInUser.UserId) {
+      this.router.navigate(['/dashboard']);
+    }
+  }
 
   ngOnInit(): void {
   }

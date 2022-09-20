@@ -4,3 +4,7 @@
         max-width: 150px;
     }
 }
+
+.home-page.minimum-height{
+    min-height: calc(100vh - 280px);
+}

@@ -1,30 +1,72 @@
 <div class="form-container mx-auto">
     <div class="card">
         <form [formGroup]="candidateRegisterForm" class="card-body" (submit)="registerCandidate()">
-            <div class="form-group my-2">
-                <label class="p-1" for="enrolmentYear">Enrolment year</label>
-                <select formControlName="enrolmentYear" class="form-control" name="enrolmentYear" id="enrolmentYear">
-                    <option>Select year</option>
-                    <option>2021-2022</option>
-                    <option>2022-2023</option>
-                    <option>2023-2024</option>
-                    <option>2024-2025</option>
-                    <option>2025-2026</option>
-                </select>
+            <div class="row">
+                <div class="col-6 form-group my-2">
+                    <label class="p-1" for="stateCode">State code</label>
+                    <select formControlName="stateCode" class="form-control" name="stateCode" id="stateCode" (change)="getCenterCode()">
+                        <option [value]=null>Select state code</option>
+                        <option *ngFor="let state of getCenterStateData">{{ state.StateCode }}</option>
+                    </select>
+                </div>
+                <div class="col-6 form-group my-2">
+                    <label class="p-1" for="centerCode">Center code</label>
+                    <select formControlName="centerCode" class="form-control" name="centerCode" id="centerCode">
+                        <option [value]=null>Select center code</option>
+                        <option [value]="center.CenterCode" *ngFor="let center of getCenterData">{{ center.CenterName }}</option>
+                    </select>
+                </div>
+                <div class="form-group my-2">
+                    <label class="p-1" for="name">Name</label>
+                    <input autocomplete="off" formControlName="name" type="text" class="form-control" id="name" placeholder="Enter name" required>
+                </div>
             </div>
-            <div class="form-group my-2">
-                <label class="p-1" for="enrolmentNumber">Enrolment number</label>
-                <input formControlName="enrolmentNumber" type="email" class="form-control" id="enrolmentNumber" placeholder="Enter enrolment number">
+            <div *ngIf="registrationType === 'candidate'">
+                <div class="form-group my-2">
+                    <label class="p-1" for="enrolmentYear">Enrollment year</label>
+                    <select formControlName="enrolmentYear" class="form-control" name="enrolmentYear" id="enrolmentYear">
+                        <!-- <option value=null>Select enrollment year</option> -->
+                        <option value="2021-2023">2021-2023</option>
+                    </select>
+                </div>
+                <div class="form-group my-2">
+                    <label class="p-1" for="rciApplication">RCI application</label>
+                    <input formControlName="rciApplication" type="email" class="form-control" id="rciApplication" placeholder="Enter RCI application number">
+                </div>
+                <div class="form-group my-2">
+                    <label class="p-1" for="courseName">Course name</label>
+                    <select formControlName="courseName" class="form-control" name="courseName" id="courseName">
+                        <option [value]="course.CourseId" *ngFor="let course of allCourses">{{course.CourseName}}</option>
+                    </select>
+                </div>
             </div>
-            <div class="form-group my-2">
-                <label class="p-1" for="name">Name</label>
-                <input formControlName="name" type="name" class="form-control" id="name" placeholder="Enter name" required>
+            <div *ngIf="registrationType !== 'candidate'">
+                <div class="form-group my-2">
+                    <label class="p-1" for="userName">User name</label>
+                    <input autocomplete="off" formControlName="userName" type="text" class="form-control" id="userName" placeholder="Enter user name" required>
+                </div>
+                <div class="form-group my-2">
+                    <label class="p-1" for="email">Email</label>
+                    <input autocomplete="off" formControlName="email" type="email" class="form-control" id="email" placeholder="Enter email" required>
+                </div>
+                <div class="form-group my-2">
+                    <label class="p-1" for="password">Password</label>
+                    <input autocomplete="off" formControlName="password" type="password" class="form-control" id="password" placeholder="Enter password" required>
+                </div>
+                <div class="form-group my-2">
+                    <label class="p-1" for="contactNumber">Phone number</label>
+                    <input autocomplete="off" formControlName="contactNumber" type="number" class="form-control" id="contactNumber" placeholder="Enter phone number" required>
+                </div>
+                <div class="form-group my-2">
+                    <label class="p-1" for="role">Select role</label>
+                    <select formControlName="role" class="form-control" name="role" id="role">
+                        <option value="2">Co-ordinator</option>
+                        <option value="1">Admin</option>
+                    </select>
+                </div>
             </div>
-            <div class="form-group my-2">
-                <label class="p-1" for="dob">Date of birth</label>
-                <input type="date" formControlName="dob" class="form-control" id="dob" placeholder="Enter DOB" required>
-            </div>
-            <button type="submit" class="btn btn-success my-2">Submit</button>
+            <button [disabled]="!candidateRegisterForm.dirty || formSubmitStatus" type="submit" class="btn btn-success my-2">Submit</button>
+            <div *ngIf="formSubmitStatus" class="spinner-border spinner-border-middle align-text-top" role="status"></div>
         </form>
     </div>
 </div>

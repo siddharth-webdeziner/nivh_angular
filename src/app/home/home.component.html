@@ -1,21 +1,31 @@
-<div class="container minimum-height">
+<div class="container home-page minimum-height">
     <div class="row mx-auto my-5">
-        <div class="col-sm-6">
-            <div class="card my-5">
+        <div class="col-lg-4">
+            <div class="card my-3">
                 <img src="assets/images/admin.png" class="card-img-top" alt="admin image">
                 <div class="card-body text-center">
                     <h5 class="card-title">Admin login</h5>
-                    <p class="card-text">Type your administrator's Username and Password into the field</p>
+                    <p class="card-text">Type your administrator's credentials into the field</p>
                     <a (click)="login('admin')" class="btn btn-success">Admin Login</a>
                 </div>
             </div>
         </div>
-        <div class="col-sm-6">
-            <div class="card my-5">
+        <div class="col-lg-4">
+            <div class="card my-3">
+                <img src="assets/images/candidate.png" class="card-img-top" alt="candidate image">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Course coordinator login</h5>
+                    <p class="card-text">Type your coordinator's credentials into the field</p>
+                    <a (click)="login('coordinator')" class="btn btn-success">Coordinator login</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card my-3">
                 <img src="assets/images/candidate.png" class="card-img-top" alt="candidate image">
                 <div class="card-body text-center">
                     <h5 class="card-title">Candidate login</h5>
-                    <p class="card-text">Type your candidate's Username and Password into the field</p>
+                    <p class="card-text">Type your candidate's credentials into the field</p>
                     <a (click)="login('candidate')" class="btn btn-success">Candidate login</a>
                 </div>
             </div>

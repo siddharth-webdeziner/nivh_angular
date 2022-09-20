@@ -1,9 +1,11 @@
-<div class="container minimum-height">
+<div class="container login-form minimum-height">
     <div class="row">
-        <div class="form-container mx-auto my-5">
+        <div class="form-container mx-auto">
             <div class="card">
-                <form [formGroup]="loginForm" class="card-body" novalidate>
-                    <div class="form-group my-2">
+                <form *ngIf="source !== 'candidate'" [formGroup]="loginForm" class="card-body" novalidate (submit)="navigateToDashboard()">
+                    <h4 *ngIf="source !== 'candidate'">{{source === 'admin' ? 'Admin' : 'Coordinator'}} login</h4>
+                    <h4 *ngIf="source === 'candidate'">Candidate login</h4>
+                    <div *ngIf="source !== 'candidate'" class="form-group my-2">
                         <label class="p-1" for="name">Name</label>
                         <input type="email" formControlName="name" class="form-control" id="name" placeholder="Enter your name" required>
                         <div *ngIf="formSubmitStatus && (loginForm.controls['name'].invalid || loginForm.controls['name'].errors?.['required'])" class="invalid-feedback">
@@ -18,13 +20,40 @@
                         </div>
                     </div>
                     <div *ngIf="source === 'candidate'" class="form-group my-2">
-                        <label class="p-1" for="dob">Date of birth</label>
-                        <input type="date" class="form-control" formControlName="password" id="password" placeholder="Enter your DOB" required>
+                        <label class="p-1" for="name">RCI application number</label>
+                        <input type="text" class="form-control" formControlName="name" id="name" placeholder="Enter your center code" required (focusout)="navigateToDashboard()" >
+                        <div *ngIf="formSubmitStatus && (loginForm.controls['name'].invalid || loginForm.controls['name'].errors?.['required'])" class="invalid-feedback">
+                            This field is required.
+                        </div>
+                    </div>
+                    <div *ngIf="source === 'candidate'" class="form-group my-2">
+                        <label class="p-1" for="password">Center name</label>
+                        <input type="text" class="form-control" formControlName="password" id="password" placeholder="Enter your center code" required>
                         <div *ngIf="formSubmitStatus && (loginForm.controls['password'].invalid || loginForm.controls['password'].errors?.['required'])" class="invalid-feedback">
                             This field is required.
                         </div>
                     </div>
-                    <button [disabled]="!loginForm.controls['name'].dirty" type="button" class="btn btn-success my-2" (click)="navigateToDashboard()">Submit</button>
+                    <button type="button" routerLink="/" class="btn btn-secondary my-2">Back</button>&nbsp;
+                    <button [disabled]="!loginForm.dirty || formSubmitStatus" type="submit" class="btn btn-success my-2">Submit</button>
+                    <div *ngIf="formSubmitStatus" class="spinner-border spinner-border-middle align-text-top" role="status"></div>
+                </form>
+                <form *ngIf="source === 'candidate'" [formGroup]="loginForm" class="card-body" novalidate (submit)="navigateToDashboard()">
+                    <h4>Candidate login</h4>
+                    <div class="form-group my-2">
+                        <label class="p-1" for="name">RCI application number</label>
+                        <input type="text" class="form-control" formControlName="name" id="name" placeholder="Enter your center code" required (focusout)="getCenterName()" >
+                        <div class="badge">RCI application will be like APP-XXXXXXXXXX</div>
+                        <div *ngIf="formSubmitStatus && (loginForm.controls['name'].invalid || loginForm.controls['name'].errors?.['required'])" class="invalid-feedback">
+                            This field is required.
+                        </div>
+                    </div>
+                    <div class="form-group my-2">
+                        <label class="p-1" for="password">Center name</label>
+                        <input type="text" formControlName="password" class="form-control" id="password" placeholder="Enter your center name" readonly>
+                    </div>
+                    <button type="button" routerLink="/" class="btn btn-secondary my-2">Back</button>&nbsp;
+                    <button [disabled]="formSubmitStatus" type="submit" class="btn btn-success my-2">Submit</button>
+                    <div *ngIf="formSubmitStatus" class="spinner-border spinner-border-middle align-text-top" role="status"></div>
                 </form>
             </div>
         </div>
