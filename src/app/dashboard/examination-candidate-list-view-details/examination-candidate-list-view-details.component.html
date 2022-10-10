@@ -1,0 +1,43 @@
+<div class="responsive-table">
+    <div *ngIf="examinationFormData">
+        <table class="examinationForm">
+            <tr>
+            <td><strong>Academic session: </strong>2021-23
+            </td>
+            <td><strong>Year: </strong>1st
+            </td>
+            </tr>
+            <tr>
+                <td><strong>Name: </strong>{{examinationFormData.CandidateName}}</td>
+                <td><strong>Course name: </strong>{{examinationFormData.CourseName}}</td>
+            </tr>
+            <tr>
+                <td><strong>Father's name: </strong>{{examinationFormData.CandidateFather}}</td>
+                <td><strong>Enrollment no.: </strong>{{examinationFormData.CandidateEnrollment}}</td>
+            <!-- <td><strong>Mother's name: </strong>Roland Mendel</td> -->
+            </tr>
+            <tr>
+            <td><strong>Status: </strong>Fresh
+            </td>
+            <td><strong>Center name: </strong>{{examinationFormData.CenterName}}</td>
+            </tr>
+            <tr>
+            <td style="vertical-align: top;"><strong>Theory: </strong>
+                <ul>
+                    <li *ngFor="let theory of examinationFormData.TheoryPaperList">{{theory.PaperName}}</li>
+                </ul>
+            </td>
+            <td><strong>Practical: </strong>
+                <ul>
+                    <li *ngFor="let theory of examinationFormData.PracticalPaperList">{{theory.PaperName}}</li>
+                </ul>
+            </td>
+            </tr>
+            <tr>
+            </tr>
+        </table>
+        <div>
+            <button *ngIf="!examinationFormData.IsVerified" (click)="examinationFormVerify()" type="submit" class="btn btn-success my-2">Verify</button>
+        </div>
+    </div>
+</div>

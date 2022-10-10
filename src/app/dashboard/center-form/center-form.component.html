@@ -24,6 +24,16 @@
                     </div>
                 </div>
                 <div class="col-6 form-group my-2">
+                    <label class="p-1" for="centerCode">Center Id</label>
+                    <select formControlName="centerBranch" (click)="changeBranch()" class="form-control" name="centerBranch" id="centerBranch">
+                        <option [value]=null>Select center branch</option>
+                        <option [value]="branch.id" *ngFor="let branch of getCenterBranch">{{ branch.label }}</option>
+                    </select>
+                    <div *ngIf="formSubmitStatus && (centerForm.controls['centerBranch'].invalid || centerForm.controls['centerBranch'].errors?.['required'])" class="invalid-feedback">
+                        This field is required.
+                    </div>
+                </div>
+                <div class="col-6 form-group my-2">
                     <label class="p-1" for="centerCode">Center code</label>
                     <select formControlName="centerCode" class="form-control" name="centerCode" id="centerCode">
                         <option [value]=null>Select center code</option>

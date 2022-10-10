@@ -29,3 +29,16 @@ sup {
     height: 25px;
     margin-left: 10px;
 }
+
+table tr td {
+    &:last-child {
+        width: 100px;
+    }
+}
+// .responsive-table {
+//     min-width: 1024px;
+//     overflow-x: auto;
+// }
+.badge {
+    color: #333;
+}

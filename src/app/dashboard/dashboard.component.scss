@@ -1,0 +1,21 @@
+.userName {
+    border: none;
+    font-size: 20px;
+    strong {
+        text-transform: capitalize;
+    }
+    &:hover {
+        background-color: transparent;
+    }
+}
+.centerName {
+    border: none;
+    font-size: 14px;
+    padding-top: 0;
+    strong {
+        text-transform: capitalize;
+    }
+    &:hover {
+        background-color: transparent;
+    }
+}

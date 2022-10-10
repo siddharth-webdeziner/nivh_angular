@@ -1,32 +1,41 @@
 <div class="responsive-table">
     <div>
+        <div>
+            Filter by center code
+            <div class="row">
+                <select class="selectList form-control" [(ngModel)]="selectedStateOption" name="stateCode" id="stateCode" (change)="getCenterCode()">
+                    <option value=null>Select center id</option>
+                    <option [value]="1">VI</option>
+                    <option [value]="2" >DB</option>
+                    <option [value]="3" >DCE</option>
+                </select>
+            </div>
+        </div>
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">Center code</th>
-                <th scope="col">Center Name</th>
-                <th scope="col">Center addesss</th>
-                <th scope="col">State name</th>
-                <th scope="col">Examination center</th>
+                <th scope="col">Paper name</th>
+                <th scope="col">Course name</th>
+                <th scope="col">Date</th>
+                <th scope="col">Timing</th>
                 <th scope="col">&nbsp;</th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let center of centerArr; let i = index">
-                <td class="text-capitalize">{{center.CenterCode}}</td>
-                <td style="width: 250px" class="text-capitalize">{{center.CenterName}}</td>
-                <td style="width: 250px">{{center.CentreAddress}}</td>
-                <td>{{center.StateCode}}</td>
-                <td style="width: 250px">{{center.ExaminationCenter ? center.ExaminationCenter : 'Center not added'}}</td>
+            <tr *ngFor="let center of timesheetArr; let i = index">
+                <td style="max-width: 200px" class="text-capitalize">{{center.PaperName}}</td>
+                <td style="max-width: 300px" class="text-capitalize">{{center.CourseName}}</td>
+                <td style="max-width: 300px">{{center.DateTime}}</td>
+                <td>{{center.Timings}}</td>
                 <!-- <td *ngIf="center.CentreId">{{center.CentreId}}</td> -->
                 <td class="align-right">
                     <!-- <button class="btn btn-outline-success btn-sm" type="button" [routerLink] = "['../candidate-details', center.CentreId]">View Details</button>&nbsp;&nbsp; -->
-                    <button class="btn btn-outline-secondary btn-sm" type="button" [routerLink] = "['../update-center', center.CentreId]">
+                    <!-- <button class="btn btn-outline-secondary btn-sm" type="button" [routerLink] = "['../update-center', center.CentreId]">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
                             <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
                         </svg>
-                    </button>&nbsp;
-                    <button class="btn btn-outline-danger btn-sm" type="button" (click)="deleteRecord(center.CentreId, i)">
+                    </button>&nbsp; -->
+                    <button class="btn btn-outline-danger btn-sm" type="button" (click)="deleteRecord(center.DateListId, i)">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
                             <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
@@ -36,8 +45,8 @@
             </tr>
         </tbody>
     </table>
-    <div class="no-match-found" *ngIf="centerArr && centerArr.length <= 0">
-        <h4>No center list found!!</h4>
+    <div class="no-match-found" *ngIf="timesheetArr && timesheetArr.length <= 0">
+        <h4>No Datesheet list found!!</h4>
     </div>
     </div>
     </div>

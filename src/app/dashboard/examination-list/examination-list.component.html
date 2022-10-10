@@ -1,0 +1,54 @@
+<div class="responsive-table">
+    <div>
+        <div  *ngIf="userDetails.UserRoleId === 1">
+            Filter by center code
+            <div class="row">
+                <select class="selectList form-control" [(ngModel)]="selectedStateOption" name="stateCode" id="stateCode" (change)="getCenterCode()">
+                    <option value=null>Select state code</option>
+                    <option *ngFor="let state of getCenterStateData">{{ state.StateCode }}</option>
+                </select>
+                <select class="selectList form-control" [(ngModel)]="selectedCenterOption" name="centerCode" id="centerCode" (change)="filterCandidateList()">
+                    <option value=null>Select center code</option>
+                    <option [value]="center.CenterCode" *ngFor="let center of getCenterData">{{ center.CenterName }}</option>
+                </select>
+                <select class="selectList form-control" [(ngModel)]="selectedYearOption" name="centerCode" id="centerCode">
+                    <option value="2021-2023">2021-2023</option>
+                </select>
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">S.no.</th>
+                <th scope="col">Name</th>
+                <th scope="col">Enrollment</th>
+                <th scope="col">Examination status</th>
+                <!-- <th scope="col">Category</th>
+                <th scope="col">Email Id</th>
+                <th scope="col">Mobile no.</th>
+                <th scope="col">Disability</th> -->
+                <th scope="col">Is verified</th>
+                <th scope="col">Status</th>
+                <th scope="col">&nbsp;</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let candidate of candidateArr; let i = index">
+                <td>{{i + 1}}</td>
+                <td class="text-capitalize">{{candidate.FirstName}}</td>
+                <td class="text-capitalize">{{candidate.EnrollmentNo}}</td>
+                <td>{{candidate.Examination_status ? 'Submitted' : 'Not submitted'}}</td>
+                <td>{{candidate.IsVerified ? 'Verified' : 'Not verified'}}</td>
+                <td>{{candidate.status ? 'Re-appear': 'Fresh'}}</td>
+                <td style="width: 300px" class="align-right">
+                    <button class="btn btn-outline-success btn-sm" type="button" (click)="viewDetails(candidate.CandidateId)">Details</button>
+                    &nbsp;
+                    <button class="btn btn-outline-success btn-sm" type="button" (click)="viewAdmitCard(candidate.CandidateId)">Admit card</button>
+                    &nbsp;
+                    <button *ngIf="userDetails.UserRoleId !== 4" class="btn btn-outline-success btn-sm" type="button" (click)="verification(candidate.CandidateId)">Verification</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+</div>

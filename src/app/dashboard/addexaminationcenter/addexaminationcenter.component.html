@@ -1,0 +1,27 @@
+<div class="form-container mx-auto">
+    <div class="card">
+        <form [formGroup]="addExaminationCenterForm" class="card-body" (submit)="addExaminationCenter()">
+            <div class="row">
+                <div class="col-12 form-group my-2">
+                    <label class="p-1" for="center">Center <sup>*</sup></label>
+                    <select formControlName="center" class="form-control" name="center" id="center">
+                        <option [value]=null>Select center</option>
+                        <option [value]="branch.CentreId" *ngFor="let branch of getCenterBranch">{{ branch.CenterName }}</option>
+                    </select>
+                    <div *ngIf="formSubmitStatus && (addExaminationCenterForm.controls['center'].invalid || addExaminationCenterForm.controls['center'].errors?.['required'])" class="invalid-feedback">
+                        This field is required.
+                    </div>
+                </div>
+                <div class="col-12 form-group my-2">
+                    <label class="p-1" for="examCenter">Examination center</label>
+                    <input type="text" placeholder="Enter examination center" formControlName="examCenter" class="form-control" name="examCenter" id="examCenter" />
+                    <div *ngIf="formSubmitStatus && (addExaminationCenterForm.controls['examCenter'].invalid || addExaminationCenterForm.controls['examCenter'].errors?.['required'])" class="invalid-feedback">
+                        This field is required.
+                    </div>
+                </div>
+            </div>
+            <button [disabled]="!addExaminationCenterForm.dirty || formSubmitStatus" type="submit" class="btn btn-success my-2">Submit</button>
+            <div *ngIf="formSubmitStatus" class="spinner-border spinner-border-middle align-text-top" role="status"></div>
+        </form>
+    </div>
+</div>

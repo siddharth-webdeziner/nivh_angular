@@ -1,6 +1,8 @@
 <div class="container-fluid my-5 minimum-height">
     <div class="row">
         <div class="col-3">
+            <a class="list-group-item list-group-item-action userName">Hello, <strong>{{loggedInUser.FirstName}}</strong></a>
+            <a *ngIf="loggedInUser.UserRoleId !== 1" class="list-group-item list-group-item-action centerName">Center: <strong>{{loggedInUser.CentreName}}</strong></a>
             <div class="list-group">
                 <a *ngIf="loggedInUser.UserRoleId === 1" href="javascript: void(0)" routerLink="candidate/register" routerLinkActive="active" class="list-group-item list-group-item-action">Register candidate</a>
 
@@ -19,6 +21,18 @@
                 <a *ngIf="loggedInUser.UserRoleId === 1" href="javascript: void(0)" routerLink="add-center" routerLinkActive="active" class="list-group-item list-group-item-action">Add center</a>
 
                 <a *ngIf="loggedInUser.UserRoleId === 1" href="javascript: void(0)" routerLink="center-list" routerLinkActive="active" class="list-group-item list-group-item-action">Center list</a>
+
+                <a *ngIf="loggedInUser.UserRoleId === 1" href="javascript: void(0)" routerLink="add-timesheet" routerLinkActive="active" class="list-group-item list-group-item-action">Datesheet</a>
+
+                <a *ngIf="loggedInUser.UserRoleId === 1" href="javascript: void(0)" routerLink="timesheet-list" routerLinkActive="active" class="list-group-item list-group-item-action">Datesheet list</a>
+
+                <a *ngIf="loggedInUser.UserRoleId === 4" href="javascript: void(0)" routerLink="examination-form" routerLinkActive="active" class="list-group-item list-group-item-action">Examination form</a>
+
+                <a *ngIf="loggedInUser.UserRoleId === 1 || loggedInUser.UserRoleId === 2" href="javascript: void(0)" routerLink="examination-candidate-list" routerLinkActive="active" class="list-group-item list-group-item-action">Examination candidate list</a>
+
+                <a *ngIf="loggedInUser.UserRoleId === 1" href="javascript: void(0)" routerLink="add-examination-center" routerLinkActive="active" class="list-group-item list-group-item-action">Add examination center form</a>
+
+                <a *ngIf="loggedInUser.UserRoleId === 4" href="javascript: void(0)" [routerLink] = "['admit-card', loggedInUser.CandidateId]" routerLinkActive="active" class="list-group-item list-group-item-action">Admit card</a>
 
                 <a href="javascript: void(0)" (click)="loggedOut()" class="list-group-item list-group-item-action">log out</a>
             </div>

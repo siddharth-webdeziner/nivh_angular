@@ -13,6 +13,13 @@ import { UpdateRegisterComponent } from './update-register/update-register.compo
 import { UpdateCoordinatorComponent } from './update-coordinator/update-coordinator.component';
 import { CenterFormComponent } from './center-form/center-form.component';
 import { CenterListComponent } from './center-list/center-list.component';
+import { TimesheetsComponent } from './timesheets/timesheets.component';
+import { TimesheetslistComponent } from './timesheetslist/timesheetslist.component';
+import { ExaminationformComponent } from './examinationform/examinationform.component';
+import { ExaminationListComponent } from './examination-list/examination-list.component';
+import { ExaminationCandidateListViewDetailsComponent } from './examination-candidate-list-view-details/examination-candidate-list-view-details.component';
+import { AddexaminationcenterComponent } from './addexaminationcenter/addexaminationcenter.component';
+import { AdmitcardComponent } from './admitcard/admitcard.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +33,14 @@ import { CenterListComponent } from './center-list/center-list.component';
     UpdateRegisterComponent,
     UpdateCoordinatorComponent,
     CenterFormComponent,
-    CenterListComponent
+    CenterListComponent,
+    TimesheetsComponent,
+    TimesheetslistComponent,
+    ExaminationformComponent,
+    ExaminationListComponent,
+    ExaminationCandidateListViewDetailsComponent,
+    AddexaminationcenterComponent,
+    AdmitcardComponent
   ],
   imports: [
     CommonModule,

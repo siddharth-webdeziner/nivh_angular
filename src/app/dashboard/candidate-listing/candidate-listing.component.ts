@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from 'src/app/service/common.service';
 import Swal from 'sweetalert2';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-candidate-listing',
@@ -168,5 +169,15 @@ export class CandidateListingComponent implements OnInit {
       }
     })
   }
+
+  viewDetails(id: any) {
+      const url = `${environment.url.baseUrl}dashboard/candidate-details/${id}`;
+      window.open(url, '_blank');
+  }
+
+  editDetails(id: any) {
+    const url = `${environment.url.baseUrl}dashboard/update-form/${id}`;
+    window.open(url, '_blank');
+}
 
 }

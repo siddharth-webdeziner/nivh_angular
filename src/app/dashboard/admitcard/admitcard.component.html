@@ -1,0 +1,72 @@
+<div class="responsive-table">
+    <div *ngIf="examinationFormData">
+        <table class="examinationForm">
+            <tr  *ngIf="!verification">
+                <td style="vertical-align: top; border: 1px solid #dddddd; text-align: left; padding: 8px; width: 50%;"><strong>Photo: </strong>
+                    <span class="image-block">
+                        <img [src]="examinationFormData.CandidateImage" alt="">
+                    </span>
+                </td>
+                <td style="vertical-align: top; border: 1px solid #dddddd; text-align: left; padding: 8px; width: 50%;"><strong>Signature: </strong>
+                    <span class="image-block">
+                        <img [src]="examinationFormData.CandidateSignature" alt="">
+                    </span>
+                </td>
+            </tr>
+            <tr>
+            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 50%;"><strong>Academic session: </strong>{{examinationFormData.AcademicYear}}
+            </td>
+            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 50%;"><strong>Year: </strong>1st
+            </td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 50%;"><strong>Name: </strong>{{examinationFormData.CandidateName}}</td>
+                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 50%;"><strong>Course name: </strong>{{examinationFormData.CourseName}}</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 50%;"><strong>Father's name: </strong>{{examinationFormData.CandidateFather}}</td>
+                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 50%;"><strong>Enrollment no.: </strong>{{examinationFormData.CandidateEnrollment}}</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 50%;"><strong>Status: </strong>Fresh
+                </td>
+                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 50%;"><strong>Examination center name: </strong>{{examinationFormData.CenterName}}</td>
+            </tr>
+        </table>
+        <div style="border: 1px solid #ddd; border-top: 0;" class="dateSheet">
+            <h3 style="padding: 10px 15px 0;"><strong>Datesheet:</strong></h3>
+            <ul style="padding: 0 15px 10px;">
+                <li style="list-style: none;">
+                    <table style="width: 100%;">
+                        <tr>
+                            <th>S.no.</th>
+                            <th>Paper name</th>
+                            <th>Date</th>
+                            <th>Timing</th>
+                        </tr>
+                        <tr *ngFor="let theory of examinationFormData.DateSheetList;let i = index;">
+                            <td style="vertical-align: top; padding: 5px 0 5px;">{{i+1}}</td>
+                            <td style="vertical-align: top; width: 50%; padding: 5px 0;">{{theory.PaperName}}</td>
+                            <td style="vertical-align: top; padding: 5px 0;">{{theory.DateTime}}</td>
+                            <td style="vertical-align: top; width: 200px; padding: 5px 0;">{{theory.Timings}}</td>
+                        </tr>
+                    </table>
+                </li>
+            </ul>
+        </div>
+        <table *ngIf="verification" class="examinationForm">
+            <tr>
+            <td style="vertical-align: top; border: 1px solid #dddddd; text-align: left; padding: 8px; width: 50%;">
+                <strong>Signature of Invigilator: </strong>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </td>
+            <td style="vertical-align: top; border: 1px solid #dddddd; text-align: left; padding: 8px; width: 50%;">
+                <strong>Signature of Candidate: </strong>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </td>
+            </tr>
+        </table>
+        <br />
+        <a class="btn btn-outline-success btn-md" [href]="examinationFormData.admitCardPdf" download>Download admit card</a>
+    </div>
+</div>

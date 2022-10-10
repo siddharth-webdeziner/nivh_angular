@@ -229,7 +229,8 @@ export class CommonService {
             StateCode: centerForm.value.stateCode,
             CenterState: centerForm.value.centerState, 
             CenterCode: centerForm.value.centerCode,
-            CentreAddress: centerForm.value.cAddress
+            CentreAddress: centerForm.value.cAddress,
+            CourseId: centerForm.value.centerBranch
         }
         return this.http.post(this.url+"centre/add-centre", data).pipe(map((response: any) => {
             return response;
@@ -245,7 +246,17 @@ export class CommonService {
     getSelectedCenterDetails(id: any) {
         return this.http.get(this.url+"centre/getCentre/"+id).pipe(map((response: any)=> {
             return response;
-        }))       
+        }))      
+    }
+
+    saveExaminationCenterForm(formData: any) {
+        const data = {
+            CentreId: formData.value.center,
+            ExaminationCenter: formData.value.examCenter,
+        }
+        return this.http.post(this.url+"centre/add-examinationcentre", data).pipe(map((response: any) => {
+            return response;
+        }));
     }
 
     updateCenterForm(centerForm: any, id: any) {
@@ -273,6 +284,28 @@ export class CommonService {
         }));
     }
 
+    examinationForm(res: any, canidateId: any, cooridnator: boolean) {
+        let data;
+        if(!cooridnator) {
+            data = {
+                AcademicYearId: res.value.academicYear,
+                IsReappear: res.value.status,
+                PaperId: 'all',
+                IsSubmitted: 1,
+                YearOf: res.value.year,
+                CandidateId: canidateId
+            }
+        } else {
+            data = {
+                ExaminationFormId: canidateId,
+                IsVerified: true,  
+            }
+        }
+        return this.http.post(this.url+"examination/saveExaminationForm", data).pipe(map((response: any) => {
+            return response;
+        }));
+    }
+
     verifyCandidateDetails(id: any) {
         const data = {
             CandidateId: id,
@@ -282,4 +315,58 @@ export class CommonService {
             return response;
         }));
     }
+
+    getCourseList(type: any) {
+        const course = type ? 'theory' : 'practical';
+        return this.http.get(this.url+"examination/getExaminationPaper/"+course+"/first year").pipe(map((response: any)=> {
+            return response;
+        }))
+    }
+
+    getExaminationCandidateList(data: any) {
+        return this.http.post(this.url+"examination/listExaminationCandidate", data).pipe(map((response: any) => {
+            return response;
+        }));
+    }
+
+    getAdmitCardByIdDetails(id: any) {
+        return this.http.get(this.url+"examination/getAdmitCardById/"+id).pipe(map((response: any) => {
+            return response;
+        }));
+    }
+
+    addTimesheet(formData: any) {
+        const data = {
+            PaperName: formData.value.paperId ,
+            DateTime: formData.value.dateTime,
+            Timings: formData.value.timing,
+            CourseId: formData.value.course
+        }
+        return this.http.post(this.url+"examination/add-datelist", data).pipe(map((response: any) => {
+            return response;
+        }));
+    }
+
+    getTimesheetList(val: any) {
+        return this.http.get(this.url+"examination/getDatesheet/"+val).pipe(map((response: any) => {
+            return response;
+        }));       
+    }
+
+    deleteTimesheetRecord(id: any) {
+        const data = {
+            DateListId: id,
+            IsDeleted: true
+        }
+        return this.http.post(this.url+"examination/add-datelist", data).pipe(map((response: any) => {
+            return response;
+        }));
+    }
+
+    getExaminationFormDetails(id: any) {
+        return this.http.get(this.url+"examination/getExaminationFormById/"+id).pipe(map((response: any)=> {
+            return response;
+        }))
+    }
+
 }

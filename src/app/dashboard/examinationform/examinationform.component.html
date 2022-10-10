@@ -1,0 +1,60 @@
+<div class="responsive-table">
+    <div>
+        <form *ngIf="examinationFormData" [formGroup]="examinationForm" class="card-body" (submit)="examinationFormSubmit()">
+            <table class="examinationForm">
+                <tr>
+                <td><strong>Academic session: </strong> 
+                    <select formControlName="academicYear" class="form-control" name="academicYear" id="academicYear">
+                        <option [value]=null>Select academic session</option>
+                        <option value='2'>2021-23</option>
+                        <option disabled value='2022-24'>2022-24</option>
+                    </select>
+                </td>
+                <td><strong>Year: </strong>
+                    <select formControlName="year" class="form-control" name="year" id="year">
+                        <option [value]=null>Select year</option>
+                        <option value='first'>1st</option>
+                        <option disabled value='second'>2nd</option>
+                    </select>
+                </td>
+                </tr>
+                <tr>
+                    <td><strong>Name: </strong>{{examinationFormData.CandidateName}}</td>
+                    <td><strong>Course name: </strong>{{examinationFormData.CourseName}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Father's name: </strong>{{examinationFormData.CandidateFather}}</td>
+                    <td><strong>Enrollment no.: </strong>{{examinationFormData.CandidateEnrollment}}</td>
+                <!-- <td><strong>Mother's name: </strong>Roland Mendel</td> -->
+                </tr>
+                <tr>
+                <td><strong>Status: </strong>
+                    <select formControlName="status" class="form-control" name="status" id="status">
+                        <option [value]=null>Select session</option>
+                        <option value='0'>Fresh</option>
+                        <option disabled value='1'>Reappear</option>
+                    </select>
+                </td>
+                <td><strong>Center name: </strong>{{examinationFormData.CenterName}}</td>
+                </tr>
+                <tr>
+                <td style="vertical-align: top;"><strong>Theory: </strong>
+                    <ul>
+                        <li *ngFor="let theory of examinationFormData.TheoryPaperList">{{theory.PaperName}}</li>
+                    </ul>
+                </td>
+                <td><strong>Practical: </strong>
+                    <ul>
+                        <li *ngFor="let theory of examinationFormData.PracticalPaperList">{{theory.PaperName}}</li>
+                    </ul>
+                </td>
+                </tr>
+                <tr>
+                </tr>
+            </table>
+            <div>
+            <button *ngIf="!submitted" type="submit" class="btn btn-success my-2">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>

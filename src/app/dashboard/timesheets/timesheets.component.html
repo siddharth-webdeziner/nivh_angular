@@ -1,0 +1,75 @@
+<div class="form-container mx-auto">
+    <div class="card">
+        <form [formGroup]="timesheetForm" class="card-body" (submit)="addTimesheet()">
+            <div class="row">
+                <!-- <div class="col-12 form-group my-2">
+                    <label class="p-1" for="centerName">Choose one</label>
+                    <br>
+                    <label class="form-check-label" for="selectCourse">
+                        <input [checked]="practical" class="form-check-input" name="selectCourse" type="radio" (change)="getCourseList(true)" />
+                        Theory
+                    </label>&nbsp;&nbsp;
+                    <label class="form-check-label" for="selectCourse">
+                        <input [checked]="!practical" class="form-check-input" name="selectCourse" type="radio" (change)="getCourseList(false)" />
+                        Practical
+                    </label>
+                </div> -->
+                <div class="col-6 form-group my-2">
+                    <label class="p-1" for="academicYear">Academic year <sup>*</sup></label>
+                    <select formControlName="academicYear" class="form-control" id="academicYear">
+                        <option [value]=null>Select academic year</option>
+                        <option value="2021-2023">2021-2023</option>
+                    </select>
+                    <div *ngIf="formSubmitStatus && (timesheetForm.controls['academicYear'].invalid || timesheetForm.controls['academicYear'].errors?.['required'])" class="invalid-feedback">
+                        This field is required.
+                    </div>
+                </div>
+                <div class="col-6 form-group my-2">
+                    <label class="p-1" for="course">Course <sup>*</sup></label>
+                    <select formControlName="course" class="form-control" name="course" id="course">
+                        <option [value]=null>Select course</option>
+                        <option [value]="branch.id" *ngFor="let branch of getCourseBranch">{{ branch.label }}</option>
+                    </select>
+                    <div *ngIf="formSubmitStatus && (timesheetForm.controls['course'].invalid || timesheetForm.controls['course'].errors?.['required'])" class="invalid-feedback">
+                        This field is required.
+                    </div>
+                </div>
+                <div class="col-6 form-group my-2">
+                    <label class="p-1" for="paperId">Paper name</label>
+                    <input type="text" placeholder="Enter the paper name" formControlName="paperId" class="form-control" name="paperId" id="paperId" />
+                    <div *ngIf="formSubmitStatus && (timesheetForm.controls['paperId'].invalid || timesheetForm.controls['paperId'].errors?.['required'])" class="invalid-feedback">
+                        This field is required.
+                    </div>
+                </div>
+                <div class="col-6 form-group my-2">
+                    <label class="p-1" for="dateTime">Select Date</label>
+                    <input type="date" placeholder="Enter date" formControlName="dateTime" class="form-control" name="dateTime" id="dateTime" />
+                    <div *ngIf="formSubmitStatus && (timesheetForm.controls['dateTime'].invalid || timesheetForm.controls['dateTime'].errors?.['required'])" class="invalid-feedback">
+                        This field is required.
+                    </div>
+                </div>
+                <div class="col-6 form-group my-2">
+                    <label class="p-1" for="session">Select session</label>
+                    <select formControlName="session" class="form-control" name="session" id="session">
+                        <option [value]=null>Select session</option>
+                        <option value='0'>Fresh</option>
+                        <option disabled value='1'>Reappear</option>
+                    </select>
+                    <div *ngIf="formSubmitStatus && (timesheetForm.controls['session'].invalid || timesheetForm.controls['session'].errors?.['required'])" class="invalid-feedback">
+                        This field is required.
+                    </div>
+                </div>
+                <div class="col-6 form-group my-2">
+                    <label class="p-1" for="timing">Timing</label>
+                    <input autocomplete="off" formControlName="timing" type="text" class="form-control" id="timing" placeholder="Enter timing" required>
+                    <div class="badge">Timing will be like `10:00AM - 01:00PM`</div>
+                    <div *ngIf="formSubmitStatus && (timesheetForm.controls['timing'].invalid || timesheetForm.controls['timing'].errors?.['required'])" class="invalid-feedback">
+                        This field is required.
+                    </div>
+                </div>
+            </div>
+            <button [disabled]="!timesheetForm.dirty || formSubmitStatus" type="submit" class="btn btn-success my-2">Submit</button>
+            <div *ngIf="formSubmitStatus" class="spinner-border spinner-border-middle align-text-top" role="status"></div>
+        </form>
+    </div>
+</div>
