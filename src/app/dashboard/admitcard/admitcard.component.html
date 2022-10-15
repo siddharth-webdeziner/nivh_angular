@@ -1,7 +1,34 @@
 <div class="responsive-table">
     <div *ngIf="examinationFormData">
+        <div style="border: 1px solid #dddddd; border-bottom: 0; padding: 30px 10px 20px;">
+            <div style="width: 24%; display: inline-block; vertical-align: top;">
+                <img style="max-width: 100%; height: 60px;" src="http://nber.niepvdlib.co.in/assets/images/Logo-of-RCI.png" alt="image">
+            </div>
+            <div style="width: 24%; display: inline-block; text-align: center; vertical-align: top;">
+                <img style="max-width: 100%; height: 60px;" src="http://nber.niepvdlib.co.in/assets/images/Ashok-Stambh.png" alt="image">
+            </div>
+            <div style="width: 24%; display: inline-block; text-align: center; vertical-align: top;">
+                <img style="max-width: 100%; height: 60px;" src="http://nber.niepvdlib.co.in/assets/images/NIEPVD-LOGO.png" alt="image">
+            </div>
+            <div style="width: 24%; display: inline-block; text-align: right; vertical-align: top;">
+                <img style="max-width: 100%; height: 60px;" src="http://nber.niepvdlib.co.in/assets/images/Azadi-ka-Mahotsav-Eng.png" alt="image">
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <h3 style="font-size: 18px; font-weight: 700;padding-bottom: 0px">National Institute for the Empowerment of Persons with Visual Disabilities</h3>
+                <h3 style="font-size: 18px; font-weight: 700;padding-bottom: 0px">(DIVYANGJAN), 116, Rajpur Road, Dehradun, Uttarakhand</h3>
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <h3 style="font-size: 18px; font-weight: 600;padding-bottom: 0px">National Board of Examination in Rehabilitation</h3>
+                <h4 style="font-size: 14px; font-weight: 600;padding-bottom: 0px">(An Adjunct Body of Rehabilitation Council of India, Under Ministry of Social Justice and Empowerment)</h4>
+                <h4 style="font-size: 14px; font-weight: 600;padding-bottom: 0px">Department of Empowerment of Persons with Disabilities, G.O.I.</h4>
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <h3 style="font-size: 18px; font-weight: 700;padding-bottom: 0px">Admit Card</h3>
+                <h4 style="font-size: 18px; font-weight: 700;padding-bottom: 0px">{{examinationFormData.CourseName}} - 1st Year ({{examinationFormData.AcademicYear}})</h4>
+            </div>
+        </div>
         <table class="examinationForm">
-            <tr  *ngIf="!verification">
+            <tr *ngIf="!verification">
                 <td style="vertical-align: top; border: 1px solid #dddddd; text-align: left; padding: 8px; width: 50%;"><strong>Photo: </strong>
                     <span class="image-block">
                         <img [src]="examinationFormData.CandidateImage" alt="">
@@ -13,15 +40,15 @@
                     </span>
                 </td>
             </tr>
-            <tr>
+            <!-- <tr>
             <td style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 50%;"><strong>Academic session: </strong>{{examinationFormData.AcademicYear}}
             </td>
             <td style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 50%;"><strong>Year: </strong>1st
             </td>
-            </tr>
+            </tr> -->
             <tr>
                 <td style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 50%;"><strong>Name: </strong>{{examinationFormData.CandidateName}}</td>
-                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 50%;"><strong>Course name: </strong>{{examinationFormData.CourseName}}</td>
+                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 50%;"><strong>Study center name: </strong>{{examinationFormData.CenterName}}</td>
             </tr>
             <tr>
                 <td style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 50%;"><strong>Father's name: </strong>{{examinationFormData.CandidateFather}}</td>
@@ -30,7 +57,7 @@
             <tr>
                 <td style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 50%;"><strong>Status: </strong>Fresh
                 </td>
-                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 50%;"><strong>Examination center name: </strong>{{examinationFormData.CenterName}}</td>
+                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 50%;"><strong>Examination center name: </strong>{{examinationFormData.ExaminationCenterName}}</td>
             </tr>
         </table>
         <div style="border: 1px solid #ddd; border-top: 0;" class="dateSheet">
@@ -54,18 +81,33 @@
                 </li>
             </ul>
         </div>
-        <table *ngIf="verification" class="examinationForm">
+        <table class="examinationForm">
             <tr>
-            <td style="vertical-align: top; border: 1px solid #dddddd; text-align: left; padding: 8px; width: 50%;">
+            <!-- <td style="vertical-align: top; border: 1px solid #dddddd; text-align: left; padding: 8px; width: 50%;">
                 <strong>Signature of Invigilator: </strong>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            </td>
+            </td> -->
             <td style="vertical-align: top; border: 1px solid #dddddd; text-align: left; padding: 8px; width: 50%;">
-                <strong>Signature of Candidate: </strong>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <strong>Signature of Director: </strong>
+                &nbsp;
             </td>
             </tr>
         </table>
+        <div style="border: 1px solid #dddddd; border-top: 0; padding: 30px 10px 20px;">
+            <div>
+                <h3><strong>Instructions</strong></h3>
+                <ol style="padding-left: 20px; padding-top: 10px;">
+                    <li style="padding-bottom: 10px;">The candidate must carry colour printout of the Admit Card.</li>
+                    <li style="padding-bottom: 10px;">The entry of the students in the examination centre will not be permitted after 9:30AM / 1:30PM.</li>
+                    <li style="padding-bottom: 10px;">No candidate shall be permitted to leave the Examination Room/ Hall before 12:00 Noon/04:00 PM.</li>
+                    <li style="padding-bottom: 10px;">No Candidate would be allowed to enter the Examination Centre, without Admit Card and Valid ID Proof. In case the candidate does not have admit card, then the Centre Superintendent will ensure the genuineness of the student.</li>
+                    <li style="padding-bottom: 10px;">Candidate must carry “Any one of the original and valid Photo Identification Proof issued by the Government” – PAN card/Driving License/Voter ID/ Passport/ Aadhar Card (With photograph)/ Ration Card./ Aadhar Enrolment No. with Photo.</li>
+                    <li style="padding-bottom: 10px;">The candidate must bring PwD certificate issued by the Competent Authority, for claiming relaxation under PwD category.</li>
+                    <li style="padding-bottom: 10px;">Candidates are NOT allowed to carry any personal belongings including electronic devices, mobile phone and other banned/ prohibited items to the Examination Centre.</li>
+                    <li style="padding-bottom: 10px;">No Candidate should adopt any unfair means or indulge in any unfair examination practices.</li>
+                </ol>
+            </div>
+        </div>
         <br />
         <a class="btn btn-outline-success btn-md" [href]="examinationFormData.admitCardPdf" download>Download admit card</a>
     </div>

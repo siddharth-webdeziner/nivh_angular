@@ -32,7 +32,7 @@
 
                 <a *ngIf="loggedInUser.UserRoleId === 1" href="javascript: void(0)" routerLink="add-examination-center" routerLinkActive="active" class="list-group-item list-group-item-action">Add examination center form</a>
 
-                <a *ngIf="loggedInUser.UserRoleId === 4" href="javascript: void(0)" [routerLink] = "['admit-card', loggedInUser.CandidateId]" routerLinkActive="active" class="list-group-item list-group-item-action">Admit card</a>
+                <!-- <a *ngIf="loggedInUser.UserRoleId === 4" href="javascript: void(0)" [routerLink] = "['admit-card', loggedInUser.CandidateId]" routerLinkActive="active" class="list-group-item list-group-item-action">Admit card</a> -->
 
                 <a href="javascript: void(0)" (click)="loggedOut()" class="list-group-item list-group-item-action">log out</a>
             </div>
