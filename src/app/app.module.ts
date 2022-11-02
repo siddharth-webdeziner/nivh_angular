@@ -10,7 +10,7 @@ import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-import { VerificationComponent } from './verification/verification.component';
+import { VerificationComponent } from './dashboard/verification/verification.component';
 
 
 @NgModule({

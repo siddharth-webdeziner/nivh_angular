@@ -40,12 +40,12 @@
                 <td>{{candidate.Examination_status ? 'Submitted' : 'Not submitted'}}</td>
                 <td>{{candidate.IsVerified ? 'Verified' : 'Not verified'}}</td>
                 <td>{{candidate.status ? 'Re-appear': 'Fresh'}}</td>
-                <td style="width: 300px" class="align-right">
+                <td style="width: 200px" class="align-right">
                     <button class="btn btn-outline-success btn-sm" type="button" (click)="viewDetails(candidate.CandidateId)">Details</button>
                     &nbsp;
                     <button class="btn btn-outline-success btn-sm" type="button" (click)="viewAdmitCard(candidate.CandidateId)">Admit card</button>
                     &nbsp;
-                    <button *ngIf="userDetails.UserRoleId !== 4" class="btn btn-outline-success btn-sm" type="button" (click)="verification(candidate.CandidateId)">Verification</button>
+                    <!-- <button *ngIf="userDetails.UserRoleId !== 4" class="btn btn-outline-success btn-sm" type="button" (click)="verification(candidate.CandidateId)">Verification</button> -->
                 </td>
             </tr>
         </tbody>

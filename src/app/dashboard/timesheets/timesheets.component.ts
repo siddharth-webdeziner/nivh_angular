@@ -42,7 +42,6 @@ export class TimesheetsComponent implements OnInit {
   }
 
   getCourseList(event: any) {
-    console.log(event)
     this.commonService.getCourseList(event).subscribe((res)=>{
       if(res) {
         console.log(res.Data)

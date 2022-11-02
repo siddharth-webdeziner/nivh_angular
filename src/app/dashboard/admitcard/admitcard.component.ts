@@ -41,6 +41,7 @@ export class AdmitcardComponent implements OnInit {
   }
 
   getexaminationForm() {
+    document.body.classList.add('display-loader');
     this.commonService.getAdmitCardByIdDetails(this.candidateId).subscribe((res)=>{
       if(res) {
         this.examinationFormData = res.Data;

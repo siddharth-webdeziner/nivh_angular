@@ -9,9 +9,18 @@ import Swal from 'sweetalert2';
 export class CommonService {
     bSubject = new BehaviorSubject({});
     url: any;
+    httpOptions: any;
     constructor(private http : HttpClient) {
     //  this.url  = 'http://nehasshahi-001-site1.htempurl.com/'; //local server
         this.url = 'http://nber.niepvdlib.co.in/';
+        // this.url = 'http://103.224.23.58/';
+        // this.httpOptions = {
+        //     headers: new HttpHeaders({ 
+        //       'Access-Control-Allow-Origin':'*',
+        //       'Authorization':'authkey',
+        //       'userid':'1'
+        //     })
+        // };
     }
 
   
@@ -20,6 +29,8 @@ export class CommonService {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
             'Access-Control-Allow-Headers': '*',
+            'Access-Control-Allow-Origin':'*',
+            'Access-Control-Allow-Methods': 'POST'
           }
           const requestOptions = {                                                                                                                                                                                 
             headers: new HttpHeaders(header), 
@@ -246,7 +257,25 @@ export class CommonService {
     getSelectedCenterDetails(id: any) {
         return this.http.get(this.url+"centre/getCentre/"+id).pipe(map((response: any)=> {
             return response;
-        }))      
+        }))
+    }
+
+    getCandidateById(id: any) {
+        return this.http.get(this.url+"candidate/getCandidateByCenter/"+id).pipe(map((response: any)=> {
+            return response;
+        }))
+    }
+
+    getExaminationpaperByCourse(data: any) {
+        return this.http.get(this.url+"examination/getExaminationpaperByCourse/"+data.course+"/"+data.academicSession+"/"+data.year+"/"+data.theoryPractical+"/"+data.centerId).pipe(map((response: any)=> {
+            return response;
+        }))
+    }
+
+    saveCandidateMarks(data: any) {
+        return this.http.post(this.url+"examination/saveExaminationMarks", data).pipe(map((response: any) => {
+            return response;
+        }));
     }
 
     saveExaminationCenterForm(formData: any) {
@@ -359,6 +388,12 @@ export class CommonService {
             IsDeleted: true
         }
         return this.http.post(this.url+"examination/add-datelist", data).pipe(map((response: any) => {
+            return response;
+        }));
+    }
+
+    getVerificationList(data: any) {
+        return this.http.post(this.url+"examination/verificationByCenter", data).pipe(map((response: any) => {
             return response;
         }));
     }

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { VerificationComponent } from './verification/verification.component';
 import { AddexaminationcenterComponent } from './addexaminationcenter/addexaminationcenter.component';
 import { AdmitcardComponent } from './admitcard/admitcard.component';
 import { CandidateDetailsComponent } from './candidate-details/candidate-details.component';
@@ -17,6 +18,7 @@ import { ExaminationformComponent } from './examinationform/examinationform.comp
 import { TimesheetsComponent } from './timesheets/timesheets.component';
 import { TimesheetslistComponent } from './timesheetslist/timesheetslist.component';
 import { UpdateRegisterComponent } from './update-register/update-register.component';
+import { MarksheetComponent } from './marksheet/marksheet.component';
 
 const routes: Routes = [
     { path: '', component: DashboardComponent, children: [
@@ -43,6 +45,9 @@ const routes: Routes = [
         { path: 'add-examination-center', component: AddexaminationcenterComponent },
         { path: 'admit-card/:id', component: AdmitcardComponent },
         { path: 'verify-admit-card/:id', component: AdmitcardComponent },
+        { path: 'verification', component: VerificationComponent },
+        { path: 'statement-theory', component: MarksheetComponent },
+        { path: 'statement-practical', component: MarksheetComponent },
     ] },
 ];
 

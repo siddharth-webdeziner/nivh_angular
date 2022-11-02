@@ -20,6 +20,7 @@ import { ExaminationListComponent } from './examination-list/examination-list.co
 import { ExaminationCandidateListViewDetailsComponent } from './examination-candidate-list-view-details/examination-candidate-list-view-details.component';
 import { AddexaminationcenterComponent } from './addexaminationcenter/addexaminationcenter.component';
 import { AdmitcardComponent } from './admitcard/admitcard.component';
+import { MarksheetComponent } from './marksheet/marksheet.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { AdmitcardComponent } from './admitcard/admitcard.component';
     ExaminationListComponent,
     ExaminationCandidateListViewDetailsComponent,
     AddexaminationcenterComponent,
-    AdmitcardComponent
+    AdmitcardComponent,
+    MarksheetComponent
   ],
   imports: [
     CommonModule,

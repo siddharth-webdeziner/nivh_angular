@@ -1,0 +1,75 @@
+<div class="responsive-table">
+    <div>
+        <div>
+            Filter
+            <div class="row">
+                <select class="selectList form-control" [(ngModel)]="academicSession" name="academicSession" id="academicSession">
+                    <option value=null>Select Academic year</option>
+                    <option value="2">2021-2023</option>
+                </select>
+                <select class="selectList form-control" [(ngModel)]="courseName" name="courseName" id="courseName" (change)="getPaperCount()">
+                    <option [value]=null>Select course name</option>
+                    <option [value]="branch.value" *ngFor="let branch of getCourse">{{branch.id}} - {{ branch.label }}</option>
+                </select>
+                <select class="selectList form-control" [(ngModel)]="center" name="center" id="center" (change)="getPaperCount()">
+                    <option value=null>Select center</option>
+                    <option [value]="branch.CentreId" *ngFor="let branch of centerArr">{{ branch.CenterName }}</option>
+                </select>
+                <select class="selectList form-control" [(ngModel)]="year" name="year" id="year">
+                    <option value=null>Select session year</option>
+                    <option value="first year">First year</option>
+                    <option value="second year" disabled>Second year</option>
+                </select>
+            </div>
+        </div>
+        <table class="header-listing">
+            <tbody>
+                <tr>
+                    <th scope="col">S.no.</th>
+                    <th scope="col">Candidate name</th>
+                    <th scope="col">Enrollment</th>
+                    <th *ngFor="let paper of paperArr; let i = index">
+                        Paper-{{i+1}}<br>Int. 30
+                    </th>
+                    <th>&nbsp;</th>
+                </tr>
+                <tr *ngFor="let candidate of candidateArr; let i = index" class="header-listing">
+                    <td scope="col">{{i + 1}}</td>
+                    <td class="text-capitalize">{{candidate.firstName}}</td>
+                    <td class="text-capitalize">{{candidate.enrollmentNumber}}</td>
+                    <td style="width: 80px" *ngFor="let paper of candidate.PaperMarks; let j = index">
+                        {{paper ? paper.InternalMarks : 'NA'}}
+                    </td>
+                    <!-- <td>{{candidate.PaperMarks}}</td> -->
+                    <!-- <td [hidden]="candidate.PaperMarks.length > 0" *ngFor="let paper of paperArr; let i = index">0</td> -->
+                    <td>
+                        <button class="btn btn-outline-success btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="updateMarks(candidate)">Update</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="marksForm" class="card-body header-listing">
+                    <div class="mb-3" *ngFor="let item of paperArr; let j = index;">
+                        <label for="recipient-name" class="col-form-label">Paper {{j}}:</label>
+                        <input type="text" formControlName="paper_marks{{j}}" class="form-control" id="recipient-name">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" #closebutton data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" (click)="savePaperMarks(candidateId)">Save changes</button>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+.align-right {
+    text-align: right;
+}
+
+@media screen and (max-width: 1024px) {
+    .responsive-table {
+        width: 100%;
+        max-width: 1024px;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+}
+
+.selectList {
+    width: calc(35% - 100px);
+    display: inline-block;
+    margin-top: 10px;
+    margin-right: 20px;
+    &:last-child {
+        margin-left: 10px;
+    }
+    &:last-child {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+.no-match-found {
+    h4 {
+        text-align: center;
+        margin-top: 100px;
+        font-weight: 700;
+    }
+}

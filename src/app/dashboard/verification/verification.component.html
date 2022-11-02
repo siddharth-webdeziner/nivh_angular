@@ -1,0 +1,111 @@
+<div class="responsive-table">
+    <div>
+        <div>
+            Filter verification list
+            <div style="margin-bottom: 20px;">
+                <select class="selectList form-control" [(ngModel)]="centerName" name="centerName" id="centerName" (change)="filterVerificationList()">
+                    <option value=null>Select center name</option>
+                    <option [value]="state.CentreId" *ngFor="let state of centerArr">{{ state.CenterName }}</option>
+                </select>
+                <select class="selectList form-control" [(ngModel)]="courseName" name="courseName" id="courseName" (change)="getTimesheetList(courseName)">
+                    <option [value]=null>Select course name</option>
+                    <option [value]="branch.id" *ngFor="let branch of getCenterBranch">{{branch.id}} - {{ branch.label }}</option>
+                </select>
+                <select class="selectList form-control" [(ngModel)]="dateSheetList" name="dateSheetList" id="dateSheetList" (change)="filterVerificationList()">
+                    <option [value]=null>Select paper name</option>
+                    <option [value]="branch.DateListId" *ngFor="let branch of timesheetArr">{{ branch.PaperName }}</option>
+                </select>
+            </div>
+        </div>
+        <div *ngIf="filteredVerificationList">
+            <table style="width: 100%; border: 1px solid #dddddd; padding: 30px 10px 20px;">
+                <tr>
+                    <td style="text-align: center; padding-top: 20px;">
+                        <h3 style="font-size: 18px; text-transform: uppercase; font-weight: 700;padding-bottom: 0px">National Institute for the Empowerment of Persons with Visual</h3>
+                        <h3 style="font-size: 18px; text-transform: uppercase; font-weight: 700;padding-bottom: 0px">Disabilities (DIVYANGJAN)</h3>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center; margin-top: 10px;">
+                        <h3 style="font-size: 18px; font-weight: 600;padding-bottom: 0px">National Board of Examination in Rehabilitation</h3>
+                        <h4 style="font-size: 14px; font-weight: 600;padding-bottom: 0px">(An Adjunct Body of Rehabilitation Council of India, Under Ministry of Social Justice and Empowerment)</h4>
+                        <h4 style="font-size: 14px; font-weight: 600;padding-bottom: 10px">Department of Empowerment of Persons with Disabilities, G.O.I.</h4>    
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center; padding-top: 10px; border-top: 1px solid #ddd;">
+                        <h3 style="font-size: 18px; font-weight: 700;padding-bottom: 0px">Theory Examination - {{filteredVerificationList.AcademicYear}}</h3>
+                        <h4 style="font-size: 18px; font-weight: 700;padding-bottom: 0px">Attendence Sheet1/Verification Sheet</h4>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-top: 5px;">
+                        <p style="padding: 0 10px; font-size: 18px; font-weight: 400; margin-bottom: 5px"><strong>Course: </strong> {{filteredVerificationList.CourseName}} - {{filteredVerificationList.AcademicYear}}</p>    
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p style="padding: 0 10px; font-size: 18px; font-weight: 400; margin-bottom: 5px"><strong>Name of Study Center: </strong>{{filteredVerificationList.CenterName}}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-top: 5px;">
+                        <p style="padding: 0 10px; font-size: 18px; font-weight: 400; margin-bottom: 5px"><strong>Name of Education Center and Code: </strong>{{filteredVerificationList.ExaminationCenterName}}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-top: 5px;">
+                        <p style="padding: 0 10px; font-size: 18px; font-weight: 400; margin-bottom: 5px"><strong>Paper Name & Code: </strong>{{filteredVerificationList.PaperName}}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-top: 5px;">
+                        <p style="padding: 0 10px; font-size: 18px; font-weight: 400; margin-bottom: 5px"><strong>Date of Examination: </strong>{{filteredVerificationList.DateOfExamination}}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-top: 5px;padding-bottom: 20px">
+                        <p style="padding: 0 10px; font-size: 18px; font-weight: 400; margin-bottom: 5px"><strong>Room No.: </strong>___________</p>
+                    </td>
+                </tr>
+            </table>
+            <div style="border: 1px solid #ddd; border-bottom: 0;" class="dateSheet" *ngIf="filteredVerificationList.CandidateList">
+                <ul style="padding: 0;">
+                    <li style="list-style: none;">
+                        <table style="width: 100%;">
+                            <tr>
+                                <th style="border: 1px solid #ddd; border-top: 0; width: 100px; border-left: 0; text-align: left; padding: 8px;">S.no.</th>
+                                <th style="border: 1px solid #ddd; border-top: 0; width: 100px; text-align: left; padding: 8px;">Photo</th>
+                                <th style="border: 1px solid #ddd; border-top: 0; width: 300px; text-align: left; padding: 8px;">Name of Student</th>
+                                <th style="border: 1px solid #ddd; border-top: 0; width: 100px; text-align: left; padding: 8px;">Roll No.</th>
+                                <th style="border: 1px solid #ddd; border-top: 0; width: 100px; text-align: left; padding: 8px;">Booklet No.</th>
+                                <th style="border: 1px solid #ddd; border-top: 0; width: 220px; border-right: 0; text-align: left; padding: 8px;">Signature of Student</th>
+                            </tr>
+                            <tr *ngFor="let CandidateList of filteredVerificationList.CandidateList; let i = index;">
+                                <td style="border: 1px solid #ddd; border-top: 0; padding: 8px; border-left: 0; vertical-align: top;">{{i+1}}</td>
+                                <td style="border: 1px solid #ddd; border-top: 0; padding: 8px; vertical-align: top;">
+                                    <img style="width: 80px;max-height: 100px;" [src]="CandidateList.Photo" alt="photo">
+                                </td>
+                                <td style="border: 1px solid #ddd; border-top: 0; padding: 8px; vertical-align: top;">
+                                    {{CandidateList.FirstName}} {{CandidateList.LastName}}
+                                </td>
+                                <td style="border: 1px solid #ddd; border-top: 0; padding: 8px; vertical-align: top;">{{CandidateList.EnrollmentNo}}</td>
+                                <td style="border: 1px solid #ddd; border-top: 0; padding: 8px; vertical-align: top;">&nbsp;</td>
+                                <td style="border: 1px solid #ddd; border-top: 0; padding: 8px; border-right: 0; vertical-align: top;">&nbsp;</td>
+                            </tr>
+                        </table>
+                        <table style="width: 100%;">
+                            <tr>
+                                <td style="padding: 10px 0 0 10px;">
+                                    <strong style="margin-right: 10px;">Invigilator Signature:</strong>
+                                </td>                                
+                            </tr>
+                        </table>
+                    </li>
+                </ul>
+                <br />
+                <a style="margin: 10px 0 0 10px;" class="btn btn-outline-success btn-md" [href]="filteredVerificationList.VerificationPdf" download>Download verification list</a>
+            </div>
+        </div>
+    </div>
+</div>
