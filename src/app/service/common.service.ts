@@ -273,7 +273,7 @@ export class CommonService {
     }
 
     saveCandidateMarks(data: any) {
-        return this.http.post(this.url+"examination/saveExaminationMarks", data).pipe(map((response: any) => {
+        return this.http.post(this.url+"examination/saveExaminationMarksByPaper", data).pipe(map((response: any) => {
             return response;
         }));
     }

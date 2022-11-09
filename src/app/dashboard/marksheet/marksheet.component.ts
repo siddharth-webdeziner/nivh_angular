@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { Form, FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { centerId } from 'src/app/core/centerId';
 import { CommonService } from 'src/app/service/common.service';
@@ -22,14 +22,15 @@ export class MarksheetComponent implements OnInit {
   centerArr: any;
   paperArr: any;
   theoryPractical: any;
-  marksForm: FormGroup = this.formBuilder.group({
-    paper_marks0: [''],
-    paper_marks1: [''],
-    paper_marks2: [''],
-    paper_marks3: [''],
-    paper_marks4: [''],
-  });
+  marksForm: FormGroup;
   candidateId: any;
+  paperOptions: Array<any> = []
+  papers: FormArray | undefined;
+  marksUpdated: FormArray | undefined;
+  paper_marks: FormArray | undefined;
+  marksUpdateForm: FormGroup;
+  paperMarksArr: Array<any> = [];
+  paperArrayIndex: any;
 
   constructor(
     private commonService: CommonService,
@@ -37,21 +38,18 @@ export class MarksheetComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {
     this.theoryPractical =  this.activatedRoutes.snapshot.routeConfig?.path?.split("-")[1];
+    console.log('this.theoryPractical', this.theoryPractical)
+    this.marksForm = this.formBuilder.group({
+      papers: this.formBuilder.array([])
+    });
+    this.marksUpdateForm = this.formBuilder.group({
+      updatedMarks: this.formBuilder.array([])
+    })
   }
 
   ngOnInit(): void {
     this.getCenterList();
     this.getCourse = centerId;
-  }
-
-  setDetails(candidateDetails: any) {
-    candidateDetails.PaperMarks.forEach((element: any, index: any) => {
-      this.marksForm.controls['paper_marks'+index].setValue(element.InternalMarks)
-    });
-  }
-
-  getTimesheetList(courseName: any) {
-    console.log('courseName', courseName);
   }
 
   getCenterList() {
@@ -73,24 +71,12 @@ export class MarksheetComponent implements OnInit {
     })
   }
 
-  selectCenter(centerId: any) {
-    this.commonService.getCandidateById(centerId).subscribe((res)=>{
-      if(res) {
-        this.candidateArr = res.Data;
-      } else {
-        this.commonService.openErrorDialog("Wrong name or password!!");
-      }
-      setTimeout(()=>{
-        document.body.classList.remove('display-loader');
-      })
-    })
-  }
-
   getPaperCount() {
+    this.papers?.clear()
     const data = {
       course: this.courseName,
       academicSession: '2',
-      year: 'first year',
+      year: 'second year',
       theoryPractical: this.theoryPractical,
       centerId: this.center
     }
@@ -99,9 +85,7 @@ export class MarksheetComponent implements OnInit {
         if(res) {
           this.paperArr = res.Data.PaperList;
           this.candidateArr = res.Data.Candidates;
-          console.log("this.candidateArr", this.candidateArr)
-          console.log("this.paperArr", res)
-          this.updateFormGroup(this.paperArr.length);
+          this.updateFormGroup(res.Data);
         } else {
           this.commonService.openErrorDialog("Wrong name or password!!");
         }
@@ -112,206 +96,117 @@ export class MarksheetComponent implements OnInit {
     }
   }
 
-  updateFormGroup(length: number) {
-    if(length === 5) {
-      this.marksForm = this.formBuilder.group({
-        paper_marks0: [''],
-        paper_marks1: [''],
-        paper_marks2: [''],
-        paper_marks3: [''],
-        paper_marks4: [''],
-      });
-    } else {
-      this.marksForm = this.formBuilder.group({
-        paper_marks0: [''],
-        paper_marks1: [''],
-        paper_marks2: [''],
-        paper_marks3: [''],
-        paper_marks4: [''],
-        paper_marks5: [''],
-        paper_marks6: [''],
-        paper_marks7: [''],
-        paper_marks8: [''],
-        paper_marks9: [''],
-      });
-    }
+  updatePaperMarks(paper: any) {
+    let paper_marks1: any[] = [];
+    this.paper_marks = this.marksForm.controls['papers'].get('paper_marks') as FormArray;
+    paper.PaperMarks.forEach((element: any) => {
+      const getPaper = this.addPaperMarks(element);
+      paper_marks1?.push(getPaper.value.marks);
+    });
+    this.paper_marks = <any>paper_marks1;
+    // console.log('this.paper_marks', this.paper_marks);
+    return this.paper_marks;
   }
 
-  updateMarks(candidateData: any) {
-    console.log(candidateData);
-    this.candidateId = candidateData.candidateId;
-    this.setDetails(candidateData);
+  addPaperMarks(arr: any) {
+    return this.formBuilder.group({
+      marks: [arr.InternalMarks ? arr.InternalMarks : 0]
+  })
   }
 
-  creatingArr(element: any, paperMarks: any) {
-    const newArr = [{
-      PaperId: element.ExaminationPaperId,
-      TotalMarks: element.TotalMarks,
-      MarksType: "Internal",
-      InternalMarks: paperMarks
-    }]
+  updateFormGroup(candidateArr: any) {
+    this.papers = this.marksForm.controls['papers'] as FormArray;
+    candidateArr.Candidates.forEach((element: any) => {
+      this.papers?.push(this.addControls(element));
+    });
   }
 
-  savePaperMarks(id: any) {
+  updatePopupFormGroup(marksArr: any) {
+    this.marksUpdated?.clear();
+    console.log('marksArr', marksArr)
+    this.marksUpdated = this.marksUpdateForm.controls['updatedMarks'] as FormArray;
+    marksArr.forEach((element: any) => {
+      this.marksUpdated?.push(this.addMarksControls(element));
+    });
+    console.log("this.marksUpdated", this.marksUpdated);
+  }
+
+  addMarksControls(arr: any) {
+    console.log('???', arr.InternalMarks)
+    return this.formBuilder.group({
+      updatedMarks: [arr.InternalMarks ? arr.InternalMarks : 0]
+    })
+  }
+  
+  addControls(arr: any) {
+    return this.formBuilder.group({
+        candidateName: [arr.firstName],
+        enrollmentNumber: [arr.enrollmentNumber],
+        candidate_id: [arr.candidateId ? arr.candidateId : ''],
+        paper_marks: [this.updatePaperMarks(arr)]
+    })
+  }
+
+  createItem(paperArr: any) {
+    let paper_marks: any[] = [];
+    paperArr.forEach((element: any) => {
+      const getPaper = this.addPaperControls(element);
+      paper_marks?.push(getPaper.value);
+    });
+    this.paper_marks = <any>paper_marks;
+    return this.paper_marks
+  }
+  
+  addPaperControls(arr: any) {
+    return this.formBuilder.group({
+      marks: ['']
+    })
+  }
+
+  updateMarks(i: any) {
+    this.paperArrayIndex = i;
+    this.paperMarksArr = [];
+    console.log('can', i)
+    console.log(this.candidateArr.length)
+    this.candidateArr.forEach((element: any) => {
+      console.log(element.PaperMarks[i])
+      this.paperMarksArr.push(element.PaperMarks[i])
+    });
+    console.log('this.paperMarksArr', this.paperMarksArr);
+    this.updatePopupFormGroup(this.paperMarksArr)
+  }
+
+  savePaperMarks() {
     let data: any;
-    if(this.paperArr.length === 10) {
-      data = {
-        CandidateId: id,
-        CentreId: this.center,
-        AcademicYearId: this.academicSession,
-        YearOf: this.year,
-        Papers: [
-          {
-            PaperId: this.paperArr[0].ExaminationPaperId,
-            TotalMarks: this.paperArr[0].TotalMarks,
-            MarksType: "Internal",
-            InternalMarks: this.marksForm.value.paper_marks0
-          },
-          {
-            PaperId: this.paperArr[1].ExaminationPaperId,
-            TotalMarks: this.paperArr[1].TotalMarks,
-            MarksType: "Internal",
-            InternalMarks: this.marksForm.value.paper_marks1
-          },
-          {
-            PaperId: this.paperArr[2].ExaminationPaperId,
-            TotalMarks: this.paperArr[2].TotalMarks,
-            MarksType: "Internal",
-            InternalMarks: this.marksForm.value.paper_marks2
-          },
-          {
-            PaperId: this.paperArr[3].ExaminationPaperId,
-            TotalMarks: this.paperArr[3].TotalMarks,
-            MarksType: "Internal",
-            InternalMarks: this.marksForm.value.paper_marks3
-          },
-          {
-            PaperId: this.paperArr[4].ExaminationPaperId,
-            TotalMarks: this.paperArr[4].TotalMarks,
-            MarksType: "Internal",
-            InternalMarks: this.marksForm.value.paper_marks4
-          },
-          {
-            PaperId: this.paperArr[5].ExaminationPaperId,
-            TotalMarks: this.paperArr[5].TotalMarks,
-            MarksType: "Internal",
-            InternalMarks: this.marksForm.value.paper_marks5
-          },
-          {
-            PaperId: this.paperArr[6].ExaminationPaperId,
-            TotalMarks: this.paperArr[6].TotalMarks,
-            MarksType: "Internal",
-            InternalMarks: this.marksForm.value.paper_marks6
-          },
-          {
-            PaperId: this.paperArr[7].ExaminationPaperId,
-            TotalMarks: this.paperArr[7].TotalMarks,
-            MarksType: "Internal",
-            InternalMarks: this.marksForm.value.paper_marks7
-          },
-          {
-            PaperId: this.paperArr[8].ExaminationPaperId,
-            TotalMarks: this.paperArr[8].TotalMarks,
-            MarksType: "Internal",
-            InternalMarks: this.marksForm.value.paper_marks8
-          },
-          {
-            PaperId: this.paperArr[9].ExaminationPaperId,
-            TotalMarks: this.paperArr[9].TotalMarks,
-            MarksType: "Internal",
-            InternalMarks: this.marksForm.value.paper_marks9
-          }
-        ]
+    console.log('this.marksForm', this.marksForm);
+    console.log("this.paperArr", this.paperArr);
+    console.log(this.paperArr[this.paperArrayIndex].ExaminationPaperId)
+    console.log('this.marksUpdateForm', this.marksUpdateForm)
+    let candidateMarksArr: any[] = [];
+    this.marksForm.value.papers.forEach((element: any, index: number) => {
+      let myObj = {
+        CandidateIds: element.candidate_id,
+        InternalMarks: this.marksUpdateForm.value.updatedMarks[index].updatedMarks
       }
-    } else if(this.paperArr.length === 6) {
-      data = {
-        CandidateId: id,
-        CentreId: this.center,
-        AcademicYearId: this.academicSession,
-        YearOf: this.year,
-        Papers: [
-          {
-            PaperId: this.paperArr[0].ExaminationPaperId,
-            TotalMarks: this.paperArr[0].TotalMarks,
-            MarksType: "Internal",
-            InternalMarks: this.marksForm.value.paper_marks0
-          },
-          {
-            PaperId: this.paperArr[1].ExaminationPaperId,
-            TotalMarks: this.paperArr[1].TotalMarks,
-            MarksType: "Internal",
-            InternalMarks: this.marksForm.value.paper_marks1
-          },
-          {
-            PaperId: this.paperArr[2].ExaminationPaperId,
-            TotalMarks: this.paperArr[2].TotalMarks,
-            MarksType: "Internal",
-            InternalMarks: this.marksForm.value.paper_marks2
-          },
-          {
-            PaperId: this.paperArr[3].ExaminationPaperId,
-            TotalMarks: this.paperArr[3].TotalMarks,
-            MarksType: "Internal",
-            InternalMarks: this.marksForm.value.paper_marks3
-          },
-          {
-            PaperId: this.paperArr[4].ExaminationPaperId,
-            TotalMarks: this.paperArr[4].TotalMarks,
-            MarksType: "Internal",
-            InternalMarks: this.marksForm.value.paper_marks4
-          },
-          {
-            PaperId: this.paperArr[5].ExaminationPaperId,
-            TotalMarks: this.paperArr[5].TotalMarks,
-            MarksType: "Internal",
-            InternalMarks: this.marksForm.value.paper_marks5
-          }
-        ]
-      }
-    } else {
-      data = {
-        CandidateId: id,
-        CentreId: this.center,
-        AcademicYearId: this.academicSession,
-        YearOf: this.year,
-        Papers: [
-          {
-            PaperId: this.paperArr[0].ExaminationPaperId,
-            TotalMarks: this.paperArr[0].TotalMarks,
-            MarksType: "Internal",
-            InternalMarks: this.marksForm.value.paper_marks0
-          },
-          {
-            PaperId: this.paperArr[1].ExaminationPaperId,
-            TotalMarks: this.paperArr[1].TotalMarks,
-            MarksType: "Internal",
-            InternalMarks: this.marksForm.value.paper_marks1
-          },
-          {
-            PaperId: this.paperArr[2].ExaminationPaperId,
-            TotalMarks: this.paperArr[2].TotalMarks,
-            MarksType: "Internal",
-            InternalMarks: this.marksForm.value.paper_marks2
-          },
-          {
-            PaperId: this.paperArr[3].ExaminationPaperId,
-            TotalMarks: this.paperArr[3].TotalMarks,
-            MarksType: "Internal",
-            InternalMarks: this.marksForm.value.paper_marks3
-          },
-          {
-            PaperId: this.paperArr[4].ExaminationPaperId,
-            TotalMarks: this.paperArr[4].TotalMarks,
-            MarksType: "Internal",
-            InternalMarks: this.marksForm.value.paper_marks4
-          }
-        ]
-      }
+      candidateMarksArr.push(myObj)
+    });
+    console.log(candidateMarksArr)
+    data = {
+      Papers: [
+        {
+          CentreId: this.center,
+          AcademicYearId: this.academicSession,
+          YearOf: this.year,
+          MarksType: this.theoryPractical,
+          PaperId: this.paperArr[this.paperArrayIndex].ExaminationPaperId,
+          CandidateIds: candidateMarksArr
+        }
+      ]
     }
     console.log(data)
     this.commonService.saveCandidateMarks(data).subscribe((res)=>{
       if(res) {
-        console.log(res);
+          console.log(res);
         this.getPaperCount();
         this.closebutton.nativeElement.click();
       } else {
