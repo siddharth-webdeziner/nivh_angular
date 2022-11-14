@@ -38,7 +38,6 @@ export class MarksheetComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {
     this.theoryPractical =  this.activatedRoutes.snapshot.routeConfig?.path?.split("-")[1];
-    console.log('this.theoryPractical', this.theoryPractical)
     this.marksForm = this.formBuilder.group({
       papers: this.formBuilder.array([])
     });
@@ -144,22 +143,6 @@ export class MarksheetComponent implements OnInit {
         enrollmentNumber: [arr.enrollmentNumber],
         candidate_id: [arr.candidateId ? arr.candidateId : ''],
         paper_marks: [this.updatePaperMarks(arr)]
-    })
-  }
-
-  createItem(paperArr: any) {
-    let paper_marks: any[] = [];
-    paperArr.forEach((element: any) => {
-      const getPaper = this.addPaperControls(element);
-      paper_marks?.push(getPaper.value);
-    });
-    this.paper_marks = <any>paper_marks;
-    return this.paper_marks
-  }
-  
-  addPaperControls(arr: any) {
-    return this.formBuilder.group({
-      marks: ['']
     })
   }
 

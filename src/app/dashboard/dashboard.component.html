@@ -36,9 +36,9 @@
                 
                 <a *ngIf="loggedInUser.UserRoleId === 4" href="javascript: void(0)" [routerLink] = "['admit-card', loggedInUser.CandidateId]" routerLinkActive="active" class="list-group-item list-group-item-action">Admit card</a>
 
-                <a *ngIf="loggedInUser.UserRoleId === 1" href="javascript: void(0)" [routerLink] = "['statement-theory']" routerLinkActive="active" class="list-group-item list-group-item-action">Statement - Theroy</a>
+                <a *ngIf="loggedInUser.UserRoleId === 1 || loggedInUser.UserRoleId === 2" href="javascript: void(0)" [routerLink] = "['statement-theory']" routerLinkActive="active" class="list-group-item list-group-item-action">Statement - Theroy</a>
 
-                <a *ngIf="loggedInUser.UserRoleId === 1" href="javascript: void(0)" [routerLink] = "['statement-practical']" routerLinkActive="active" class="list-group-item list-group-item-action">Statement - Practical</a>
+                <a *ngIf="loggedInUser.UserRoleId === 1 || loggedInUser.UserRoleId === 2" href="javascript: void(0)" [routerLink] = "['statement-practical']" routerLinkActive="active" class="list-group-item list-group-item-action">Statement - Practical</a>
 
                 <a href="javascript: void(0)" (click)="loggedOut()" class="list-group-item list-group-item-action">log out</a>
             </div>
