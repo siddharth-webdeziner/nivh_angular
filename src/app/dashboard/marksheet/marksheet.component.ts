@@ -31,12 +31,14 @@ export class MarksheetComponent implements OnInit {
   marksUpdateForm: FormGroup;
   paperMarksArr: Array<any> = [];
   paperArrayIndex: any;
+  loggedInUser: any;
 
   constructor(
     private commonService: CommonService,
     private activatedRoutes: ActivatedRoute,
     private formBuilder: FormBuilder
   ) {
+    this.loggedInUser = this.commonService.getLoginData();
     this.theoryPractical =  this.activatedRoutes.snapshot.routeConfig?.path?.split("-")[1];
     this.marksForm = this.formBuilder.group({
       papers: this.formBuilder.array([])
@@ -44,6 +46,9 @@ export class MarksheetComponent implements OnInit {
     this.marksUpdateForm = this.formBuilder.group({
       updatedMarks: this.formBuilder.array([])
     })
+    if(this.loggedInUser.UserRoleId === 2) {
+      this.getPaperCount();
+    }
   }
 
   ngOnInit(): void {
@@ -72,14 +77,25 @@ export class MarksheetComponent implements OnInit {
 
   getPaperCount() {
     this.papers?.clear()
-    const data = {
-      course: this.courseName,
-      academicSession: '2',
-      year: 'second year',
-      theoryPractical: this.theoryPractical,
-      centerId: this.center
+    let data;
+    if(this.loggedInUser.UserRoleId === 2) {
+      data = {
+        course: this.loggedInUser.CourseName,
+        academicSession: '2',
+        year: 'second year',
+        theoryPractical: this.theoryPractical,
+        centerId: this.loggedInUser.CenterId
+      }
+    } else {
+      data = {
+        course: this.courseName,
+        academicSession: '2',
+        year: 'second year',
+        theoryPractical: this.theoryPractical,
+        centerId: this.center
+      }
     }
-    if(this.center && this.courseName) {
+    if((this.center && this.courseName) || (this.loggedInUser.CourseId && this.loggedInUser.CenterId)) {
       this.commonService.getExaminationpaperByCourse(data).subscribe((res)=>{
         if(res) {
           this.paperArr = res.Data.PaperList;
@@ -161,10 +177,6 @@ export class MarksheetComponent implements OnInit {
 
   savePaperMarks() {
     let data: any;
-    console.log('this.marksForm', this.marksForm);
-    console.log("this.paperArr", this.paperArr);
-    console.log(this.paperArr[this.paperArrayIndex].ExaminationPaperId)
-    console.log('this.marksUpdateForm', this.marksUpdateForm)
     let candidateMarksArr: any[] = [];
     this.marksForm.value.papers.forEach((element: any, index: number) => {
       let myObj = {
@@ -173,7 +185,6 @@ export class MarksheetComponent implements OnInit {
       }
       candidateMarksArr.push(myObj)
     });
-    console.log(candidateMarksArr)
     data = {
       Papers: [
         {

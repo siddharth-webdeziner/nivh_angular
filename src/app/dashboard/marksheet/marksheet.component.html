@@ -1,6 +1,6 @@
 <div class="responsive-table">
     <div>
-        <div>
+        <div *ngIf="loggedInUser.UserRoleId === 1">
             Filter
             <div class="row">
                 <select class="selectList form-control" [(ngModel)]="academicSession" name="academicSession" id="academicSession">
