@@ -1,0 +1,276 @@
+<div class="responsive-table" style="position: relative;">
+    <div *ngIf="loggedInUser.UserRoleId === 1">
+        Filter
+        <div class="row">
+            <select class="selectList form-control" [(ngModel)]="academicSession" name="academicSession" id="academicSession">
+                <option value=null>Select Academic year</option>
+                <option value="2">2021-2023</option>
+            </select>
+            <select class="selectList form-control" [(ngModel)]="courseName" name="courseName" id="courseName" (change)="getRequiredData()">
+                <option [value]=null>Select course name</option>
+                <option [value]="branch.value" *ngFor="let branch of getCourse">{{branch.id}} - {{ branch.label }}</option>
+            </select>
+            <select class="selectList form-control" [(ngModel)]="center" name="center" id="center" (change)="getRequiredData()">
+                <option value=null>Select center</option>
+                <option [value]="branch.CentreId" *ngFor="let branch of centerArr">{{ branch.CenterName }}</option>
+            </select>
+            <select class="selectList form-control" [(ngModel)]="year" name="year" id="year">
+                <option value=null>Select session year</option>
+                <option value="first year">First year</option>
+                <option value="second year" disabled>Second year</option>
+            </select>
+            <select class="selectList form-control" [(ngModel)]="candidateList" name="candidateList" id="candidateList" (change)="getData()">
+                <option value=null>Select candidate</option>
+                <option [value]="candidate.candidateId" *ngFor="let candidate of candidateArr">{{ candidate.firstName }}</option>
+            </select>
+        </div>
+    </div>
+    <div *ngIf="theoryListArr" id="download" style="width: 1260px; position: relative;">
+        <div style="position: absolute; top:0; left: 0; width: 100%; height: 100%; background-image: url('http://nber.niepvdlib.co.in/assets/images/NIEPVD_background.png');"></div>
+        <table class="header-listing-statement" style="width: 100%; border-bottom: 0;">
+            <tr>
+                <td style="width: 24%; display: inline-block; vertical-align: top; padding: 30px 0 20px 10px;">
+                    <img style="max-width: 100%; height: 60px;" src="http://nber.niepvdlib.co.in/assets/images/NIEPVD-LOGO.png" alt="image">    
+                </td>
+                <td style="width: 24%; display: inline-block; vertical-align: top; text-align: center; padding: 30px 0 20px;">
+                    
+                </td>
+                <td style="width: 24%; display: inline-block; vertical-align: top; text-align: center; padding: 30px 0 20px;">
+                    
+                </td>
+                <td style="width: 24%; display: inline-block; vertical-align: top; text-align: right; padding: 30px 10px 20px 0px;">
+                    <img style="max-width: 100%; height: 60px;" src="http://nber.niepvdlib.co.in/assets/images/Logo-of-RCI.png" alt="image">
+                </td>
+            </tr>
+        </table>
+        <div class="header-listing-statement" style="color: #030371; border-bottom: 0; padding: 10px 10px 0px;margin-top: -110px;">
+            <div style="text-align: center; margin-top: 20px;">
+                <h3 style="font-size: 18px; font-weight: 700;padding-bottom: 0px">National Institute for the Empowerment of Persons with Visual Disabilities</h3>
+                <h3 style="font-size: 18px; font-weight: 700;padding-bottom: 0px">(DIVYANGJAN), 116, Rajpur Road, Dehradun, Uttarakhand</h3>
+            </div>
+            <div style="font-size: 18px;text-align: center; margin-top: 0px;color: #030371;">
+                <h3 style="font-size: 22px;font-weight: 700;padding-bottom: 0px">Statement of Marks</h3>
+                <h4 style="font-size: 18px;font-weight: 700;padding-bottom: 0px">Diploma in Education Special Education ({{courseName}}) <span style="text-transform: uppercase;">{{year}} 2021-2023</span></h4>
+                <h4 style="font-size: 18px;font-weight: 700;padding-bottom: 0px; width: 90%; margin: 0 auto 10px;">Examination of R.C.I. NEW DELHI HELD IN</h4>
+            </div>
+        </div>
+        <div class="header-listing-statement" style="color: #030371; border-bottom: 0; padding: 0px 10px 20px;">
+            <div style="margin-top: 20px;">
+                <h3 style="font-size: 18px; font-weight: 900;padding-bottom: 0px; display: flex; justify-content: space-between;">
+                    <span style="display: inline-block;">Name of the candidate: <strong style="color: #000; text-transform: uppercase;">{{theoryListArr.PracticalCandidates.firstName}}</strong></span>
+                    <!-- <span style="display: inline-block; text-align: right;">Statement No: <strong style="color: #000; text-transform: uppercase;">11111-2-2-2-23-3-33</strong></span> -->
+                </h3>
+                <h3 style="font-size: 18px; font-weight: 900;padding-bottom: 0px; display: flex; justify-content: space-between;">
+                    <span>Roll number: <strong style="color: #000; text-transform: uppercase;">{{theoryListArr.PracticalCandidates.enrollmentNumber}}</strong></span>
+                    <span>Date: <strong style="color: #000; text-transform: uppercase;">11-11-2022</strong></span>
+                </h3>
+                <h3 style="font-size: 18px; font-weight: 900;padding-bottom: 0px; line-height: 1.4; width:80%;">Name of the center: <strong style="color: #000; text-transform: uppercase;">{{centerName}}</strong></h3>
+            </div>
+        </div>
+        <table cellspacing="0" border="1" style="width: 100%;" class="header-listing statement header-listing-statement">
+            <tbody style="width: 100%;">
+                <tr style="width: 100%; background-color: #add8e669;">
+                    <th colspan="1" style="vertical-align: bottom; font-weight: 900; padding: 10px; text-align: left;text-transform: uppercase;width: 100px;">S.no.</th>
+                    <th colspan="2" style="text-transform: uppercase;vertical-align: bottom; font-weight: 900; padding: 10px; text-align: center;text-align: left;width: 220px;">Subject</th>
+                    <th colspan="7" style="text-transform: uppercase;vertical-align: bottom; font-weight: 900; padding: 10px; text-align: center;width: 700px;">
+                        <table style="width: 100%;">
+                            <tr>
+                                <td style="width: 14%;"><span style="width: 70%; display: inline-block;">&nbsp;</span></td>
+                                <td style="width: 14%;"><span style="width: 70%; display: inline-block;">External</span></td>
+                                <td style="width: 14%;"><span style="width: 70%; display: inline-block;">&nbsp;</span></td>
+                                <td style="width: 14%;"><span style="width: 70%; display: inline-block;">&nbsp;</span></td>
+                                <td style="width: 14%;"><span style="width: 70%; display: inline-block;">Internal</span></td>
+                                <td style="width: 14%;"><span style="width: 70%; display: inline-block;">&nbsp;</span></td>
+                                <td style="width: 14%;"><span style="width: 70%; display: inline-block;">Total</span></td>
+                                <td style="width: 14%;"><span style="width: 70%; display: inline-block;">&nbsp;</span></td>
+                                <td style="width: 14%;"><span style="width: 70%; display: inline-block;">&nbsp;</span></td>
+                            </tr>
+                        </table>
+                    </th>
+                </tr>
+                <tr style="width: 100%; background-color: #add8e669;">
+                    <th colspan="1" style="width: 100px;vertical-align: bottom; font-weight: 900; padding: 10px; text-align: center;">&nbsp;</th>
+                    <th colspan="2" style="vertical-align: bottom; font-weight: 900; padding: 10px;text-transform: uppercase; text-align: center;text-align: left;width: 220px;">Theory</th>
+                    <th colspan="7" style="vertical-align: bottom; font-weight: 900; padding: 10px; text-align: center;width: 700px;">
+                        <table>
+                            <tr>
+                                <td style="width: 14%;"><span style="width: 70%; display: inline-block;">Max. Marks</span></td>
+                                <td style="width: 14%;"><span style="width: 70%; display: inline-block;">Min. Pass Marks</span></td>
+                                <td style="width: 14%;"><span style="width: 70%; display: inline-block;">Marks Obtained</span></td>
+                                <td style="width: 14%;"><span style="width: 70%; display: inline-block;">Max. Marks</span></td>
+                                <td style="width: 14%;"><span style="width: 70%; display: inline-block;">Min. Pass Marks</span></td>
+                                <td style="width: 14%;"><span style="width: 70%; display: inline-block;">Marks Obtained</span></td>
+                                <td style="width: 14%;"><span style="width: 70%; display: inline-block;">Max. Marks</span></td>
+                                <td style="width: 14%;"><span style="width: 70%; display: inline-block;">Marks Obtained</span></td>
+                                <td style="width: 14%;"><span style="width: 70%; display: inline-block;">&nbsp;</span></td>
+                            </tr>
+                        </table>
+                    </th>
+                </tr>
+                <tr *ngFor="let list of theoryListArr.TheoryPaperList; let i = index" class="header-listing">
+                    <td colspan="1" style="width: 100px;padding: 10px;font-weight: 900;" scope="col">{{list.PaperCode}}</td>
+                    <td colspan="2" style="width: 220px;text-align: left;padding: 10px;font-weight: 900;" class="text-capitalize">{{list.PaperTopic}}</td>
+                    <td colspan="7" class="marks-container" style="width: 700px;padding: 10px;text-align: center;" >
+                        <table>
+                            <tr>
+                                <td style="width: 14%;">
+                                    <!-- {{theoryListArr.TheoryCandidates | json}} -->
+                                    <span style="width: 70%; display: inline-block;">{{theoryListArr.TheoryCandidates.PaperMarks[i].MaxExternalMarks}}</span>
+                                </td>
+                                <td style="width: 14%;">
+                                    <span style="width: 70%; display: inline-block;">{{theoryListArr.TheoryCandidates.PaperMarks[i].MinExternalMarks}}</span>
+                                </td>
+                                <td style="width: 14%;">
+                                    <span style="width: 70%; display: inline-block;">{{getMarks(theoryListArr.TheoryCandidates.PaperMarks[i].ExternalMarks)}}</span>
+                                </td>
+                                <td style="width: 14%;">
+                                    <span style="width: 70%; text-align: left; display: inline-block;">{{theoryListArr.TheoryCandidates.PaperMarks[i].MaxInternalMarks}}</span>
+                                </td>
+                                <td style="width: 14%;">
+                                    <span style="width: 70%; text-align: left; display: inline-block;">{{theoryListArr.TheoryCandidates.PaperMarks[i].MinInternalMarks}}</span>
+                                </td>
+                                <td style="width: 14%;">
+                                    <span style="width: 70%; text-align: left; display: inline-block;">{{getMarks(theoryListArr.TheoryCandidates.PaperMarks[i].InternalMarks)}}</span>
+                                </td>
+                                <td style="width: 14%; text-align: left;">
+                                    <span style="width: 70%; text-align: left; display: inline-block;">{{theoryListArr.TheoryCandidates.PaperMarks[i].MaxExternalMarks + theoryListArr.TheoryCandidates.PaperMarks[i].MaxInternalMarks}}</span>
+                                </td>
+                                <td style="width: 14%;">
+                                    <span style="width: 70%; text-align: left; display: inline-block;">{{getTotalMarks(theoryListArr.TheoryCandidates.PaperMarks[i].ExternalMarks, theoryListArr.TheoryCandidates.PaperMarks[i].InternalMarks)}}&nbsp;&nbsp;</span>
+                                </td>
+                                <td style="width: 14%;"><span style="width: 70%; display: inline-block;">&nbsp;</span></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="1" style="width: 100px;padding: 10px;" scope="col">&nbsp;</td>
+                    <td colspan="2" style="width: 220px;text-align: left;padding: 10px; font-weight: bold;" class="text-capitalize">TOTAL</td>
+                    <td colspan="7" class="marks-container" style="width: 900px;padding: 10px;text-align: center;">
+                        <table>
+                            <tr>
+                                <td style="width: 14%;">&nbsp;</td>
+                                <td style="width: 14%;">&nbsp;</td>
+                                <td style="width: 14%;">&nbsp;</td>
+                                <td style="width: 14%;">&nbsp;</td>
+                                <td style="width: 14%;">&nbsp;</td>
+                                <td style="width: 14%;">&nbsp;</td>
+                                <td style="width: 14%; font-weight: bold; text-align: left;">&nbsp; {{theoryMaxmarks}}</td>
+                                <td style="width: 14%; font-weight: bold;">{{theoryMarksObtained}}&nbsp;&nbsp;</td>
+                                <td style="width: 14%;"><span style="width: 70%; display: inline-block;">&nbsp;</span></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr style="background-color: rgba(255, 20, 147, 0.2);">
+                    <th colspan="1">&nbsp;</th>
+                    <th colspan="2" style="padding: 10px;">PRACTICAL</th>
+                    <th colspan="7">&nbsp;</th>
+                    <!-- <th colspan="1">&nbsp;</th> -->
+                </tr>
+                <tr *ngFor="let list of theoryListArr.PracticalPaperList; let i = index" class="header-listing">
+                    <td colspan="1" style="width: 100px;padding: 10px;font-weight: 900;" scope="col">{{list.PaperCode}}</td>
+                    <td colspan="2" style="width: 220px;text-align: left;padding: 10px;font-weight: 900;" class="text-capitalize">{{list.PaperTopic}}</td>
+                    <td colspan="7" class="marks-container" style="width: 700px;padding: 10px;text-align: center;" >
+                        <table>
+                            <tr>
+                                <td style="width: 14%;">
+                                    <span style="width: 70%; display: inline-block;">{{theoryListArr.PracticalCandidates.PaperMarks[i].MaxExternalMarks}}</span>
+                                </td>
+                                <td style="width: 14%;">
+                                    <span style="width: 70%; display: inline-block;">{{theoryListArr.PracticalCandidates.PaperMarks[i].MinExternalMarks}}</span>
+                                </td>
+                                <td style="width: 14%;">
+                                    <span style="width: 70%; display: inline-block;">{{getMarks(theoryListArr.PracticalCandidates.PaperMarks[i].ExternalMarks)}}</span>
+                                </td>
+                                <td style="width: 14%;">
+                                    <span style="width: 70%; text-align: left; display: inline-block;">{{theoryListArr.PracticalCandidates.PaperMarks[i].MaxInternalMarks}}</span>
+                                </td>
+                                <td style="width: 14%;">
+                                    <span style="width: 70%; text-align: left; display: inline-block;">{{theoryListArr.PracticalCandidates.PaperMarks[i].MinInternalMarks}}</span>
+                                </td>
+                                <td style="width: 14%;">
+                                    <span style="width: 70%; text-align: left; display: inline-block;">{{getMarks(theoryListArr.PracticalCandidates.PaperMarks[i].InternalMarks)}}</span>
+                                </td>
+                                <td style="width: 14%; text-align: left;">
+                                    <span style="width: 70%; text-align: left; display: inline-block;">{{theoryListArr.PracticalCandidates.PaperMarks[i].MaxExternalMarks + theoryListArr.PracticalCandidates.PaperMarks[i].MaxInternalMarks}}</span>
+                                </td>
+                                <td style="width: 14%;">
+                                    <span style="width: 70%; text-align: left; display: inline-block;">{{getMarks(theoryListArr.PracticalCandidates.PaperMarks[i].ExternalMarks + theoryListArr.PracticalCandidates.PaperMarks[i].InternalMarks)}}&nbsp;&nbsp;</span>
+                                </td>
+                                <td style="width: 14%;"><span style="width: 70%; display: inline-block;">&nbsp;</span></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="1" style="width: 100px;padding: 10px;" scope="col">&nbsp;</td>
+                    <td colspan="2" style="width: 220px;text-align: left;padding: 10px; font-weight: 900;" class="text-capitalize">TOTAL</td>
+                    <td colspan="7" class="marks-container" style="width: 700px;padding: 10px;text-align: center;">
+                        <table>
+                            <tr>
+                                <td style="width: 14%;">&nbsp;</td>
+                                <td style="width: 14%;">&nbsp;</td>
+                                <td style="width: 14%;">&nbsp;</td>
+                                <td style="width: 14%;">&nbsp;</td>
+                                <td style="width: 14%;">&nbsp;</td>
+                                <td style="width: 14%;">&nbsp;</td>
+                                <td style="width: 14%; font-weight: 900; text-align: left;">&nbsp; {{practicalMaxmarks}}</td>
+                                <td style="width: 14%; font-weight: 900;">{{practicalMarksObtained}}&nbsp;&nbsp;</td>
+                                <td style="width: 14%;"><span style="width: 70%; display: inline-block;">&nbsp;</span></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="1" style="width: 100px;padding: 10px;" scope="col">&nbsp;</td>
+                    <td colspan="2" style="width: 220px;text-align: left;padding: 10px; font-weight: 900;" class="text-capitalize">GRAND TOTAL(THEORY & PRACTICAL)</td>
+                    <td colspan="7" class="marks-container" style="width: 700px;padding: 10px;text-align: center;">
+                        <table>
+                            <tr>
+                                <td style="width: 14%;">&nbsp;</td>
+                                <td style="width: 14%;">&nbsp;</td>
+                                <td style="width: 14%;">&nbsp;</td>
+                                <td style="width: 14%;">&nbsp;</td>
+                                <td style="width: 14%;">&nbsp;</td>
+                                <td style="width: 14%;">&nbsp;</td>
+                                <td style="width: 14%; font-weight: 900; text-align: left;">&nbsp; {{theoryMaxmarks + practicalMaxmarks}}</td>
+                                <td style="width: 14%; font-weight: 900;">{{theoryMarksObtained + practicalMarksObtained}}&nbsp;&nbsp;</td>
+                                <td style="width: 14%;"><span style="width: 70%; display: inline-block;">&nbsp;</span></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- <table cellspacing="0" border="1" style="width: 100%;" class="header-listing statement header-listing-statement">
+            <tbody style="width: 100%;font-weight: 700;">
+            </tbody>
+        </table> -->
+        <br />
+        <div class="header-listing-statement" style="width: 100%;">
+            <ul style="width: 400px; list-style: none;display: inline-block; padding: 0;vertical-align: top; color: #030371; font-weight: bold;">
+                <li>* Denotes Grace Marks Alloted</li>
+            </ul>
+            <ul style="list-style: none;display: inline-block; width: 500px;padding: 0;color: #000; font-weight: bold;">
+                <li><span style="color: #030371;">RESULT:</span></li>
+                <li *ngFor="let list1 of theoryListArr.PracticalCandidates.ExternalRemark">{{list1}}</li>
+                <li *ngFor="let list2 of theoryListArr.PracticalCandidates.InternalRemark">{{list2}}</li>
+                <li *ngFor="let list3 of theoryListArr.TheoryCandidates.ExternalRemark">{{list3}}</li>
+                <li *ngFor="let list4 of theoryListArr.TheoryCandidates.InternalRemark">{{list4}}</li>
+            </ul>
+            <ul style="display: inline-block; position: relative;vertical-align: top;">
+                <img style="height: 120px; position: absolute;top: -70px; left: -10px;" src="http://nber.niepvdlib.co.in/assets/images/stamp.png" alt="image">
+            </ul>
+        </div>
+        <div class="header-listing-statement" style="width: 100%;">
+            <ul style="list-style: none;display: inline-block; width: 100%;padding: 50px 0 20px;color: #030371; font-weight: bold;">
+                <li style="width: 33%; display: inline-block;">PREPARED BY</li>
+                <li style="width: 33%; text-align: center; display: inline-block;">CHECKED & VERIFIED BY</li>
+                <li style="width: 33%; text-align: right; display: inline-block;">INCHARGE, NIEPVD-NBER</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<br />
+<button *ngIf="theoryListArr" class="btn btn-outline-success" (click)="downloadPdf()">Print Statement</button>

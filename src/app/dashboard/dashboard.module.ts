@@ -21,6 +21,10 @@ import { ExaminationCandidateListViewDetailsComponent } from './examination-cand
 import { AddexaminationcenterComponent } from './addexaminationcenter/addexaminationcenter.component';
 import { AdmitcardComponent } from './admitcard/admitcard.component';
 import { MarksheetComponent } from './marksheet/marksheet.component';
+import { MarksheetTheoryComponent } from './marksheet-theory/marksheet-theory.component';
+import { DiplomaComponent } from './diploma/diploma.component';
+import { TotalFinalStatementComponent } from './total-final-statement/total-final-statement.component';
+import { FinalMarksheetComponent } from './final-marksheet/final-marksheet.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +46,11 @@ import { MarksheetComponent } from './marksheet/marksheet.component';
     ExaminationCandidateListViewDetailsComponent,
     AddexaminationcenterComponent,
     AdmitcardComponent,
-    MarksheetComponent
+    MarksheetComponent,
+    MarksheetTheoryComponent,
+    DiplomaComponent,
+    TotalFinalStatementComponent,
+    FinalMarksheetComponent
   ],
   imports: [
     CommonModule,

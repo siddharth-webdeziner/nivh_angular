@@ -272,6 +272,12 @@ export class CommonService {
         }))
     }
 
+    getAllMarksSheet(data: any) {
+        return this.http.get(this.url+"examination/getMarksheet/"+data.course+"/"+data.academicSession+"/"+data.year+"/"+data.centerId+"/"+data.candidateId).pipe(map((response: any)=> {
+            return response;
+        }))
+    }
+
     saveCandidateMarks(data: any) {
         return this.http.post(this.url+"examination/saveExaminationMarksByPaper", data).pipe(map((response: any) => {
             return response;

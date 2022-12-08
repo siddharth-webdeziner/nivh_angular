@@ -1,0 +1,48 @@
+<div class="header-listing" *ngIf="response">
+    <table style="width: 100%;" class="header-listing statement header-listing-statement">
+        <tbody style="width: 100%;">
+            <tr style="width: 100%; background-color: #ffa5008f;">
+                <th style="vertical-align: bottom; font-weight: 600; padding: 10px; border: 1px solid #ddd; text-align: center;">S.no.</th>
+                <th style="vertical-align: bottom; font-weight: 600; padding: 10px; border: 1px solid #ddd; text-align: center;text-align: left; width: 220px;">Candidate name</th>
+                <th style="vertical-align: bottom; font-weight: 600; padding: 10px; border: 1px solid #ddd; text-align: center;width: 120px;">Enrollment</th>
+                <!-- <th class="marks-container" style="vertical-align: bottom; font-weight: 600; padding: 10px; border: 1px solid #ddd; text-align: center;width: 150px;" *ngFor="let paper of response[0].PaperList; let i = index">
+                    {{paper.PaperName}}
+                    <br/>
+                    <span [class.onlyInternal]="loggedInUser.UserRoleId !== 1">Int. {{paper.InternalMarks}}</span>
+                    <strong *ngIf="loggedInUser.UserRoleId === 1">&nbsp;|&nbsp;</strong>
+                    <span *ngIf="loggedInUser.UserRoleId === 1">Ext. {{paper.ExternalMarks}}</span>
+                    <strong *ngIf="loggedInUser.UserRoleId === 1">&nbsp;|&nbsp;</strong>
+                    <span *ngIf="loggedInUser.UserRoleId === 1">Tot. {{paper.InternalMarks + paper.ExternalMarks}}</span>
+                </th> -->
+                <th style="vertical-align: bottom; font-weight: 600; padding: 10px; border: 1px solid #ddd; text-align: center;width:350px;">Remarks</th>
+            </tr>
+            <!-- <tr *ngFor="let candidate of response[0]; let i = index" class="header-listing">
+                <td scope="col">{{i + 1}}</td>
+                <td style="text-align: left;" class="text-capitalize">{{candidate.firstName}}</td>
+                <td class="text-capitalize">{{candidate.enrollmentNumber}}</td>
+                <td class="marks-container" style="width: 80px;padding: 0;" *ngFor="let marksArr of candidate.PaperMarks" >
+                    <span [class.fw-bold]="marksArr.InternalMarksColorText" [ngStyle]="{'color': marksArr.InternalMarksColorText ? marksArr.InternalMarksColorText : ''}">
+                        {{marksArr.InternalMarks === -2 ?  'A': marksArr.InternalMarks}}
+                    </span>
+                    <strong>|</strong>
+                    <span [class.fw-bold]="marksArr.ExternalMarksColorText" [ngStyle]="{'color': marksArr.ExternalMarksColorText ? marksArr.ExternalMarksColorText : ''}">
+                        {{marksArr.ExternalMarks === -2 ?  'A': marksArr.ExternalMarks}}
+                    </span>
+                    <strong>|</strong>
+                    <span>
+                        {{totalMarks(marksArr.InternalMarks, marksArr.ExternalMarks)}}
+                    </span>
+                </td>
+                <td style="width:350px; text-align: left;">
+                    <p style="margin: 0;" *ngFor="let remark of candidate.InternalRemark">
+                        {{remark}}
+                    </p>
+                    <p style="margin: 0;" *ngFor="let remark of candidate.ExternalRemark">
+                        {{remark}}
+                    </p>
+                    <p style="margin: 0;" *ngIf="candidate.InternalRemark.length === 0 && candidate.ExternalRemark.length === 0">Pass</p>
+                </td>
+            </tr> -->
+        </tbody>
+    </table>
+</div>

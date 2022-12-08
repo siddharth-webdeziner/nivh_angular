@@ -40,6 +40,16 @@
 
                 <a *ngIf="loggedInUser.UserRoleId === 1 || loggedInUser.UserRoleId === 2" href="javascript: void(0)" [routerLink] = "['statement-practical']" routerLinkActive="active" class="list-group-item list-group-item-action">Statement - Practical</a>
 
+                <a *ngIf="loggedInUser.UserRoleId === 1" href="javascript: void(0)" [routerLink] = "['finalstatement-theory']" routerLinkActive="active" class="list-group-item list-group-item-action">Final statement - Theory</a>
+
+                <a *ngIf="loggedInUser.UserRoleId === 1" href="javascript: void(0)" [routerLink] = "['finalstatement-practical']" routerLinkActive="active" class="list-group-item list-group-item-action">Final statement - Practical</a>
+
+                <!-- <a *ngIf="loggedInUser.UserRoleId === 1" href="javascript: void(0)" [routerLink] = "['totalFinalstatement']" routerLinkActive="active" class="list-group-item list-group-item-action">Total Final statement</a>
+
+                <a *ngIf="loggedInUser.UserRoleId === 1" href="javascript: void(0)" [routerLink] = "['diploma']" routerLinkActive="active" class="list-group-item list-group-item-action">Diploma</a> -->
+
+                <a *ngIf="loggedInUser.UserRoleId === 1 || loggedInUser.UserRoleId === 4" href="javascript: void(0)" [routerLink] = "['final-marksheet']" routerLinkActive="active" class="list-group-item list-group-item-action">Final marksheet</a>
+
                 <a href="javascript: void(0)" (click)="loggedOut()" class="list-group-item list-group-item-action">log out</a>
             </div>
         </div>

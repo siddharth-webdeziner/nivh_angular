@@ -19,6 +19,9 @@ import { TimesheetsComponent } from './timesheets/timesheets.component';
 import { TimesheetslistComponent } from './timesheetslist/timesheetslist.component';
 import { UpdateRegisterComponent } from './update-register/update-register.component';
 import { MarksheetComponent } from './marksheet/marksheet.component';
+import { MarksheetTheoryComponent } from './marksheet-theory/marksheet-theory.component';
+import { DiplomaComponent } from './diploma/diploma.component';
+import { FinalMarksheetComponent } from './final-marksheet/final-marksheet.component';
 
 const routes: Routes = [
     { path: '', component: DashboardComponent, children: [
@@ -48,6 +51,12 @@ const routes: Routes = [
         { path: 'verification', component: VerificationComponent },
         { path: 'statement-theory', component: MarksheetComponent },
         { path: 'statement-practical', component: MarksheetComponent },
+        { path: 'finalstatement-theory', component: MarksheetTheoryComponent },
+        { path: 'finalstatement-practical', component: MarksheetTheoryComponent },
+        { path: 'diploma', component: DiplomaComponent },
+        { path: 'totalFinalstatement', component: MarksheetTheoryComponent },
+        { path: 'final-marksheet', component: FinalMarksheetComponent },
+        
     ] },
 ];
 

@@ -116,7 +116,8 @@ export class MarksheetComponent implements OnInit {
     this.paper_marks = this.marksForm.controls['papers'].get('paper_marks') as FormArray;
     paper.PaperMarks.forEach((element: any) => {
       const getPaper = this.addPaperMarks(element);
-      paper_marks1?.push(getPaper.value.marks);
+      // console.log("getPaper", getPaper)
+      paper_marks1?.push(getPaper.value);
     });
     this.paper_marks = <any>paper_marks1;
     // console.log('this.paper_marks', this.paper_marks);
@@ -125,7 +126,8 @@ export class MarksheetComponent implements OnInit {
 
   addPaperMarks(arr: any) {
     return this.formBuilder.group({
-      marks: [arr.InternalMarks ? arr.InternalMarks : 0]
+      marks: [arr.InternalMarks ? arr.InternalMarks : 0],
+      externalMarks: [arr.ExternalMarks ? arr.ExternalMarks : 0]
   })
   }
 
@@ -138,18 +140,19 @@ export class MarksheetComponent implements OnInit {
 
   updatePopupFormGroup(marksArr: any) {
     this.marksUpdated?.clear();
-    console.log('marksArr', marksArr)
+    // console.log('marksArr', marksArr)
     this.marksUpdated = this.marksUpdateForm.controls['updatedMarks'] as FormArray;
     marksArr.forEach((element: any) => {
       this.marksUpdated?.push(this.addMarksControls(element));
     });
-    console.log("this.marksUpdated", this.marksUpdated);
+    // console.log("this.marksUpdated", this.marksUpdated);
   }
 
   addMarksControls(arr: any) {
-    console.log('???', arr.InternalMarks)
+    // console.log('???', arr.InternalMarks)
     return this.formBuilder.group({
-      updatedMarks: [arr.InternalMarks ? arr.InternalMarks : 0]
+      updatedMarks: [arr.InternalMarks ? arr.InternalMarks : 0],
+      updatedExtMarks: [arr.ExternalMarks ? arr.ExternalMarks : 0]
     })
   }
   
@@ -165,30 +168,30 @@ export class MarksheetComponent implements OnInit {
   updateMarks(i: any) {
     this.paperArrayIndex = i;
     this.paperMarksArr = [];
-    console.log('can', i)
-    console.log(this.candidateArr.length)
+    // console.log('can', i)
+    // console.log(this.candidateArr.length)
     this.candidateArr.forEach((element: any) => {
-      console.log(element.PaperMarks[i])
+      // console.log(element.PaperMarks[i])
       this.paperMarksArr.push(element.PaperMarks[i])
     });
-    console.log('this.paperMarksArr', this.paperMarksArr);
     this.updatePopupFormGroup(this.paperMarksArr)
   }
-
+  
   savePaperMarks() {
     let data: any;
     let candidateMarksArr: any[] = [];
     this.marksForm.value.papers.forEach((element: any, index: number) => {
       let myObj = {
         CandidateIds: element.candidate_id,
-        InternalMarks: this.marksUpdateForm.value.updatedMarks[index].updatedMarks
+        InternalMarks: this.marksUpdateForm.value.updatedMarks[index].updatedMarks,
+        ExternalMarks: this.marksUpdateForm.value.updatedMarks[index].updatedExtMarks
       }
       candidateMarksArr.push(myObj)
     });
     data = {
       Papers: [
         {
-          CentreId: this.center,
+          CentreId: this.loggedInUser.UserRoleId === 2 ? this.loggedInUser.CenterId : this.center,
           AcademicYearId: this.academicSession,
           YearOf: this.year,
           MarksType: this.theoryPractical,
